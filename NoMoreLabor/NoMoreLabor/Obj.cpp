@@ -1,0 +1,41 @@
+#include"DxLib.h"
+#include"Obj.h"
+#include<math.h>
+
+void Dot::Set(int a, int b) {
+	x = a;
+	y = b;
+
+	abs = sqrt(x*x + y*y);
+
+	if (x < 0) ang = atan(y / x) + PI;
+	else if (x == 0 && y >= 0)
+		ang = -3 / 2 * PI;
+	else if (x == 0 && y <= 0)
+		ang = PI / 2;
+	else if (x > 0) ang = atan(y / x);
+}
+
+void Dot::Updata() {
+	abs = sqrt(x*x + y*y);
+	double a;
+	//y *= -1;
+	if (x == 0) 
+		if (y == 0) {
+			ang = 0;
+			return;
+		}
+
+		a = atan2(x, y) + 3 * PI / 2;
+		if (a > 2 * PI) ang = a - 2 * PI;
+			else ang = a;
+		//ang = a;
+	
+}
+
+Dot Dot::Rotate(double rad) {
+	Dot ret;
+	ret.Set(x*cos(-rad) - y*sin(-rad), x*sin(-rad) + y*cos(-rad));
+	ret.Updata();
+	return ret;
+}
