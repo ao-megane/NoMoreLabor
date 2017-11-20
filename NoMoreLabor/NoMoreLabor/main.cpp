@@ -30,7 +30,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		motor.Calc(decoi);
 
-		DrawMouse(m);
+		//DrawMouse(m);
 		//DrawMouse(decoi.Rotate(PI / 2);
 		motor.Draw();
 		DrawLineByDot(m, center, BLUE);
