@@ -8,6 +8,7 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);
+	SetWindowSizeExtendRate(0.7);
 	ChangeWindowMode(true);
 	SetDrawScreen(DX_SCREEN_BACK);
 	DxLib_Init();	// DXƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
@@ -29,8 +30,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		motor.Calc(decoi);
 
-		//DrawMouse(m);
-		DrawMouse(decoi.Rotate(PI / 2.0));
+		DrawMouse(m);
+		//DrawMouse(decoi.Rotate(PI / 2);
 		motor.Draw();
 		DrawLineByDot(m, center, BLUE);
 		DrawCircle(center.x, center.y, 3, RED, true);
