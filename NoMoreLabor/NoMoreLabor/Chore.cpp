@@ -3,5 +3,5 @@
 #include"Value.h"
 
 void DrawLineByDot(Dot a, Dot b,int color) {
-	DrawLine(a.x, a.y, b.x, b.y, color, false);
+	DrawLine(a.GetX(), a.GetY(), b.GetX(), b.GetY(), color, false);
 }

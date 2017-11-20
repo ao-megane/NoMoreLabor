@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//DrawMouse(decoi.Rotate(PI / 2);
 		motor.Draw();
 		DrawLineByDot(m, center, BLUE);
-		DrawCircle(center.x, center.y, 3, RED, true);
+		DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
 		if (CheckHitKey(KEY_INPUT_DELETE)) break;
 	}
 
