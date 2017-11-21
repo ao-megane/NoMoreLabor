@@ -15,20 +15,20 @@ void Motors::Calc(Dot f) {//fは位置ベクトル
 	decoi = 1.0 / F_ABS_MAX;
 	//decoi = f.abs / DISP_WIDTH / 2;
 
-	if ((0 <= f.ang && f.ang <= PI / 2.0) || (11.0 / 6.0 * PI <= f.ang && f.ang <= 2.0 * PI)) {
-		UP = decoi * (-f.y + f.x / rootThree);
-		RD = decoi * 2 / rootTwo*f.x;
+	if ((0 <= f.GetAng() && f.GetAng() <= PI / 2.0) || (11.0 / 6.0 * PI <= f.GetAng() && f.GetAng() <= 2.0 * PI)) {
+		UP = decoi * (-f.GetY() + f.GetX() / rootThree);
+		RD = decoi * 2 / rootTwo*f.GetX();
 		LD = 0.0;
 	}
-	else if (PI / 2.0 <= f.ang && f.ang <= 7.0 / 6.0 * PI) {
-		UP = decoi * (-f.y - f.x / rootThree);
+	else if (PI / 2.0 <= f.GetAng() && f.GetAng() <= 7.0 / 6.0 * PI) {
+		UP = decoi * (-f.GetY() - f.GetX() / rootThree);
 		RD = 0.0;
-		LD = decoi * 2 / rootTwo*(-f.x);
+		LD = decoi * 2 / rootTwo*(-f.GetX());
 	}
-	else if (7.0 / 6.0 * PI <= f.ang && f.ang <= 11.0 / 6.0 * PI) {
+	else if (7.0 / 6.0 * PI <= f.GetAng() && f.GetAng() <= 11.0 / 6.0 * PI) {
 		UP = 0.0;
-		RD = decoi * (-f.Rotate(2.0/3.0*PI).y + f.Rotate(2.0/3.0*PI).x / rootThree);
-		LD = decoi * 2 / rootTwo*f.Rotate(2.0 / 3.0*PI).x;
+		RD = decoi * (-f.Rotate(2.0/3.0*PI).GetY() + f.Rotate(2.0/3.0*PI).GetX() / rootThree);
+		LD = decoi * 2 / rootTwo*f.Rotate(2.0 / 3.0*PI).GetX();
 	}
 }
 

@@ -15,6 +15,8 @@ public:
 	void SetAng(double a);
 	int GetX();
 	int GetY();
+	int* GetXad();
+	int* GetYad();
 	float GetAbs();
 	double GetAng();
 	void Updata();

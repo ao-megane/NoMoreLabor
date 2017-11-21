@@ -30,10 +30,10 @@
     <ClCompile Include="Output.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="F:\実験\プロジェクト\project1\project1\Keyboard.cpp">
+    <ClCompile Include="Keyboard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="F:\実験\プロジェクト\project1\project1\menu.cpp">
+    <ClCompile Include="menu.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

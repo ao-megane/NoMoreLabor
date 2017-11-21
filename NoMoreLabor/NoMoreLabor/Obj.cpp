@@ -56,6 +56,12 @@ int Dot::GetX() {
 int Dot::GetY() {
 	return y;
 }
+int* Dot::GetXad() {
+	return &x;
+}
+int* Dot::GetYad() {
+	return &y;
+}
 float Dot::GetAbs() {
 	return abs;
 }
