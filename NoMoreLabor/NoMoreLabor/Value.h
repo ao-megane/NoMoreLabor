@@ -10,6 +10,8 @@ const int DISP_WIDTH = 1920;
 const int DISP_HEIGHT = 1080;
 //1920*1080
 
+const int KEY_NUM = 6;
+
 const double PI = 3.14159265358979;
 const double rootTwo = 1.4142135624;
 const double rootThree = 1.7320508;
