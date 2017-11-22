@@ -5,6 +5,8 @@
 
 void Input::MouseUpdata() {
 	GetMousePoint(m.GetXad(), m.GetYad());
+	if (GetMouseInput() & MOUSE_INPUT_RIGHT) click++;
+	else click = 0;
 }
 
 // キーの入力状態更新
@@ -33,11 +35,14 @@ int Input::GetKey(int KeyCode) {
 Dot Input::GetMouse() {
 	return m;
 }
-
+int Input::GetClick() {
+	return click;
+}
 void Input::DrawMouse() {
 	DrawCircle(m.GetX(), m.GetY(), 5, BLUE, true);
 	DrawFormatString(0, 0, RED, "(%5d,%5d)", m.GetX(), m.GetY());
 	DrawFormatString(0, 20, RED, "ang = %f", m.GetAng() * 180.0 / PI);
+	DrawFormatString(0, 40, RED, "click : ", click);
 }
 void Input::DrawKey() {
 	DrawFormatString(0, 100, RED, "UP    : %d", GetKey(KEY_INPUT_UP));

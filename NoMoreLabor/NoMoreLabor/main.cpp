@@ -51,6 +51,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		switch (sceFlag){//シミュレータの流れを管理するスイッチ
 		case 0://タイトル
+			//計算
+			if (input.GetKey(KEY_INPUT_DOWN) == 1) {
+				stageFlag = (stageFlag + 1) % 3;
+			}
+			if (input.GetKey(KEY_INPUT_UP) == 1) {
+				stageFlag = (stageFlag + 2) % 3;
+			}
+			if (input.GetKey(KEY_INPUT_ESCAPE) == 1) {
+				stageFlag = 2;
+				MenuElement[0].x = 200;
+				MenuElement[1].x = 200;
+				MenuElement[2].x = 100;
+			}
+
+			if (input.GetKey(KEY_INPUT_DOWN) == 1 || input.GetKey(KEY_INPUT_UP) == 1) {
+				for (int i = 0; i < 3; i++) {
+					if (i == stageFlag) {
+						MenuElement[i].x = 100;
+					}
+					else {
+						MenuElement[i].x = 200;
+					}
+				}
+			}
+			
+			if (input.GetClick() == 1) sceFlag = stageFlag;
+
 			break;
 		case 1://リアルモード
 			break;
@@ -63,30 +90,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		default:
 			break;
 		}
-		//計算
-		if (input.GetKey(KEY_INPUT_DOWN) == 1) {
-			stageFlag = (stageFlag + 1) % 3;
-		}
-		if (input.GetKey(KEY_INPUT_UP) == 1) {
-			stageFlag = (stageFlag + 2) % 3;
-		}
-		if (input.GetKey(KEY_INPUT_ESCAPE) == 1) {
-			stageFlag = 2;
-			MenuElement[0].x = 200;
-			MenuElement[1].x = 200;
-			MenuElement[2].x = 100;
-		}
-		if (input.GetKey(KEY_INPUT_DOWN) == 1 || input.GetKey(KEY_INPUT_UP) == 1) {
-			for (int i = 0; i < 3; i++) {
-				if (i == stageFlag) {
-					MenuElement[i].x = 100;
-				}
-				else {
-					MenuElement[i].x = 200;
-				}
-			}
-		}
-
+		
 		//描画
 		for (int i = 0; i < 3; i++) {
 			//DrawFormatString(MenuElement[i].x, MenuElement[i].y, GetColor(225, 225, 225), MenuElement[i].name);
