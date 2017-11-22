@@ -6,8 +6,8 @@
 class Dot
 {
 public:
-	Dot();
-	~Dot();
+	Dot() {}
+	~Dot() {}
 	void Set(int x, int y);
 	void SetX(int a);
 	void SetY(int a);
@@ -42,12 +42,18 @@ private:
 
 };
 
-Dot::Dot()
-{
-}
-
-Dot::~Dot()
-{
-}
+//Dot::Dot(){
+//	x = 0;
+//	y = 0;
+//	abs = 0;
+//	ang = 0;
+//}
+//
+//Dot::~Dot(){
+//	x = 0;
+//	y = 0;
+//	abs = 0;
+//	ang = 0;
+//}
 
 #endif // !OBJ_H

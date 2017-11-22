@@ -6,25 +6,29 @@
 class Input
 {
 public:
-	Input();
-	~Input();
+	Input() {}
+	~Input() {}
 	void MouseUpdata();
 	void KeyUpdata();
 	void Updata();
+	int GetKey(int code);
+	Dot GetMouse();
 	void DrawMouse();
 	void DrawKey();
 private:
 	Dot m;
-	int key[KEY_NUM];
+	int key[256];
 };
 
-Input::Input()
-{
-}
-
-Input::~Input()
-{
-}
+//Input::Input(){
+//	//m = Dot();
+//	key[256] = { 0 };
+//}
+//
+//Input::~Input(){
+//	//m.~Dot();
+//	key[256] = { 0 };
+//}
 
 
 #endif // !INPUT_H

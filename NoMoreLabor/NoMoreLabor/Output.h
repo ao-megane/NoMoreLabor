@@ -5,8 +5,8 @@
 class Motors
 {
 public:
-	/*Motors();
-	~Motors();*/
+	Motors(){}
+	~Motors() {}
 	float UP;
 	float RD;
 	float LD;
@@ -20,12 +20,18 @@ private:
 
 };
 
-//Motors::Motors()
-//{
+//Motors::Motors(){
+//	UP = 0.0;
+//	RD = 0.0;
+//	LD = 0.0;
+//	SPE = 0.0;
 //}
 //
-//Motors::~Motors()
-//{
+//Motors::~Motors(){
+//	UP = 0.0;
+//	RD = 0.0;
+//	LD = 0.0;
+//	SPE = 0.0;
 //}
 
 #endif // !OUTPUT_H

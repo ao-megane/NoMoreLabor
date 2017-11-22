@@ -129,16 +129,13 @@
   <ItemGroup>
     <ClCompile Include="Chore.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Output.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chore.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="Value.h" />
