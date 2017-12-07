@@ -6,14 +6,19 @@
 class Dot
 {
 public:
-	/*Dot();
-	~Dot();*/
-	int x;
-	int y;
-	float abs;
-	double ang;	//0~2PI
-
+	Dot() {}
+	~Dot() {}
 	void Set(int x, int y);
+	void SetX(int a);
+	void SetY(int a);
+	void SetAbs(float a);
+	void SetAng(double a);
+	int GetX();
+	int GetY();
+	int* GetXad();
+	int* GetYad();
+	float GetAbs();
+	double GetAng();
 	void Updata();
 	Dot Rotate(double rad);
 
@@ -30,15 +35,25 @@ public:
 	}
 	
 private:
+	int x;
+	int y;
+	float abs;
+	double ang;	//0~2PI
 
 };
 
-//Dot::Dot()
-//{
+//Dot::Dot(){
+//	x = 0;
+//	y = 0;
+//	abs = 0;
+//	ang = 0;
 //}
 //
-//Dot::~Dot()
-//{
+//Dot::~Dot(){
+//	x = 0;
+//	y = 0;
+//	abs = 0;
+//	ang = 0;
 //}
 
 #endif // !OBJ_H
