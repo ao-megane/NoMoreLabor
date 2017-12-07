@@ -34,9 +34,9 @@ void Motors::Calc(Dot f) {//fは位置ベクトル
 
 const int r = 200;
 void Motors::Draw() {
-	DrawCircle(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0 - r, UP * 50.0, RED, true);
-	DrawCircle(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, RD * 50.0, RED, true);
-	DrawCircle(DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, LD * 50.0, RED, true);
+	DrawCircle(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0 - r, UP * 100.0, RED, true);
+	DrawCircle(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, RD * 100.0, RED, true);
+	DrawCircle(DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, LD * 100.0, RED, true);
 
 	DrawFormatString(0, 300, GREEN, "UP : %f", UP);
 	DrawFormatString(0, 320, GREEN, "RD : %f", RD);

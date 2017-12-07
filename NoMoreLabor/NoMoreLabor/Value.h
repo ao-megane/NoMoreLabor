@@ -6,8 +6,8 @@ const int RED = GetColor(255, 0, 0);
 const int GREEN = GetColor(0, 255, 0);
 const int BLUE = GetColor(0, 0, 255);
 
-const int DISP_WIDTH = 1600;
-const int DISP_HEIGHT = 900;
+const int DISP_WIDTH = 1280;
+const int DISP_HEIGHT = 800;
 
 const double PI = 3.14159265358979;
 const double rootTwo = 1.4142135624;

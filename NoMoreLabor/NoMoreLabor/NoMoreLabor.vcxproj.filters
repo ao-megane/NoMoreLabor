@@ -30,12 +30,6 @@
     <ClCompile Include="Output.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="F:\実験\プロジェクト\project1\project1\Keyboard.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="F:\実験\プロジェクト\project1\project1\menu.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chore.h">
