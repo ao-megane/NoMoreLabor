@@ -18,4 +18,7 @@ const double rootThree = 1.7320508;
 
 const double F_ABS_MAX = DISP_WIDTH;
 
+const int P_HEIGHT = 100;//ƒvƒŒƒCƒ„[‚Ì•`‰æ‚Ì‘å‚«‚³
+const int P_WIDTH = 100;
+
 #endif // !VALUE_H

@@ -31,6 +31,10 @@ void Dot::Updata() {
 		else ang = a;	
 }
 
+void Dot::Draw(int color) {
+	DrawCircle(x, y, 10, color, 1);
+}
+
 Dot Dot::Rotate(double rad) {
 	Dot ret;
 	ret.Set(x*cos(-rad) - y*sin(-rad), x*sin(-rad) + y*cos(-rad));

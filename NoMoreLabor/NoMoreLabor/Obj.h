@@ -20,6 +20,7 @@ public:
 	float GetAbs();
 	double GetAng();
 	void Updata();
+	void Draw(int color);
 	Dot Rotate(double rad);
 
 	Dot operator - (Dot a) {//ドットの平行移動
