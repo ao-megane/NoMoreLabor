@@ -4,6 +4,7 @@
 #include"Input.h"
 #include"Output.h"
 #include"Value.h"
+#include"Player.h"
 
 typedef struct {
 	int x, y;
@@ -21,9 +22,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Input input;
 	Dot center;
 	Dot decoi;
-	Dot m;
+	Player player;
 	Motors motor;
+	int Jflag;
 	center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
+	SetMousePoint(M_X, M_Y);
 
 	int stageFlag = 0;	//現在の選択番号（モード）
 	int sceFlag = 0;	//シミュレータの流れを管理する変数
@@ -31,28 +34,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*-------------フォント設定-------------------*/
 	int tanuki;			//フォント設定
 	if (AddFontResourceEx("Font/TanukiMagic.ttf", FR_PRIVATE, NULL) == 0) {
-		printfDx("AddFontResource");
+		//printfDx("AddFontResource");
 	}
 	tanuki = CreateFontToHandle("たぬき油性マジック", 100, 9, DX_FONTTYPE_ANTIALIASING_8X8);
 	if (tanuki == -1) {
-		printfDx("CreateFontToHandle");
+		//printfDx("CreateFontToHandle");
 	}
 	/*----------------ここまで---------------------*/
 
-	
+	player.Initialize();
+	Jflag = 0;
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		input.Updata();
-		
+		player.Updata(input,Jflag);
 		decoi = (input.GetMouse() - center);
-		decoi.Updata();/*
+		decoi.Updata();
 
 		motor.Calc(decoi);
+		if (!input.GetMouse().IsHitC(M_X, M_Y, M_RANGE))
+			DrawFormatString(100, 100, RED, "OUT!!!!");
 
-		m.Draw(RED);
-		motor.Draw();
-		DrawLineByDot(input.GetMouse(), center, BLUE);
+		input.GetMouse().Draw(RED);
+		player.Draw();
+		//motor.Draw();
+		//DrawLineByDot(input.GetMouse(), center, BLUE);
 		DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
-		*/
+		DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
+		
+		if (input.GetKey(KEY_INPUT_DELETE)) break;
 	}
 
 	

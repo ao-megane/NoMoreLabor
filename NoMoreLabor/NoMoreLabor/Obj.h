@@ -19,6 +19,8 @@ public:
 	int* GetYad();
 	float GetAbs();
 	double GetAng();
+	bool IsHitC(Dot a, int range);
+	bool IsHitC(int a, int b, int range);
 	void Updata();
 	void Draw(int color);
 	Dot Rotate(double rad);
@@ -26,6 +28,11 @@ public:
 	Dot operator - (Dot a) {//ドットの平行移動
 		Dot RE;
 		RE.Set(x - a.x, y - a.y);
+		return RE;
+	}
+	Dot operator + (Dot a) {//ドットの平行移動
+		Dot RE;
+		RE.Set(x + a.x, y + a.y);
 		return RE;
 	}
 	void operator = (Dot a) {

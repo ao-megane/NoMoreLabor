@@ -21,4 +21,8 @@ const double F_ABS_MAX = DISP_WIDTH;
 const int P_HEIGHT = 100;//ƒvƒŒƒCƒ„[‚Ì•`‰æ‚Ì‘å‚«‚³
 const int P_WIDTH = 100;
 
+const int M_X = DISP_WIDTH - 100;
+const int M_Y = DISP_HEIGHT - 100;
+const int M_RANGE = 80;
+
 #endif // !VALUE_H

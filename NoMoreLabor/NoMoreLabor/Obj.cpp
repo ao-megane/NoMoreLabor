@@ -16,6 +16,24 @@ void Dot::Set(int a, int b) {
 	else if (x > 0) ang = atan(y / x);
 }
 
+bool Dot::IsHitC(Dot a,int range) {
+	if (((x - a.x)*(x - a.x) + (y - a.y)*(y - a.y)) <= (range * range)) {//“à‘¤
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Dot::IsHitC(int a_x,int a_y, int range) {
+	if (((x - a_x)*(x - a_x) + (y - a_y)*(y - a_y)) <= (range * range)) {//“à‘¤
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Dot::Updata() {
 	abs = sqrt(x*x + y*y);
 	double a;
