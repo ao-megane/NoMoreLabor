@@ -44,7 +44,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		input.Updata();
 		
 		decoi = (input.GetMouse() - center);
-		decoi.Updata();
+		decoi.Updata();/*
 
 		motor.Calc(decoi);
 
@@ -52,7 +52,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		motor.Draw();
 		DrawLineByDot(input.GetMouse(), center, BLUE);
 		DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
-		
+		*/
 	}
 
 	
