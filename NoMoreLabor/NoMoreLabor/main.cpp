@@ -11,6 +11,11 @@ typedef struct {
 	char name[128];
 } MenuElement_t;
 
+/*
+TODO
+“àÏÀ‘•‚µ‚Ä’áŒø—¦‚ğ‚¨‚µ‚á‚ê‚É‚·‚é
+*/
+
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);
