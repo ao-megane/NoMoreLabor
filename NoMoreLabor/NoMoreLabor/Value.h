@@ -25,4 +25,6 @@ const int M_X = DISP_WIDTH - 100;
 const int M_Y = DISP_HEIGHT - 100;
 const int M_RANGE = 80;
 
+const int MAX_SPEED = 40;
+
 #endif // !VALUE_H
