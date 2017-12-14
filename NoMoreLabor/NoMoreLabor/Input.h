@@ -13,11 +13,11 @@ public:
 	void Updata();
 	int GetKey(int code);
 	int GetClick();
-	Dot GetMouse();
+	intDot GetMouse();
 	void DrawMouse();
 	void DrawKey();
 private:
-	Dot m;
+	intDot m;
 	int click;
 	int key[256];
 };

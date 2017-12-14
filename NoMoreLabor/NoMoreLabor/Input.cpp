@@ -32,7 +32,7 @@ void Input::Updata() {
 int Input::GetKey(int KeyCode) {
 	return key[KeyCode]; // KeyCode‚Ì“ü—Íó‘Ô‚ğ•Ô‚·
 }
-Dot Input::GetMouse() {
+intDot Input::GetMouse() {
 	return m;
 }
 int Input::GetClick() {
@@ -41,7 +41,7 @@ int Input::GetClick() {
 void Input::DrawMouse() {
 	DrawCircle(m.GetX(), m.GetY(), 5, BLUE, true);
 	DrawFormatString(0, 0, RED, "(%5d,%5d)", m.GetX(), m.GetY());
-	DrawFormatString(0, 20, RED, "ang = %f", m.GetAng() * 180.0 / PI);
+	DrawFormatString(0, 20, RED, "ang = %f", m.Todouble().GetAng() * 180.0 / PI);
 	DrawFormatString(0, 40, RED, "click : ", click);
 }
 void Input::DrawKey() {
