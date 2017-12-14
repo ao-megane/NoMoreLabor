@@ -6,8 +6,8 @@ const int RED = GetColor(255, 0, 0);
 const int GREEN = GetColor(0, 255, 0);
 const int BLUE = GetColor(0, 0, 255);
 
-const int DISP_WIDTH = 1920;
-const int DISP_HEIGHT = 1080;
+const int DISP_WIDTH = 1280;
+const int DISP_HEIGHT = 800;
 //1920*1080
 
 const int KEY_NUM = 6;
