@@ -2,7 +2,7 @@
 #include"Obj.h"
 #include<math.h>
 
-void Dot::Set(int a, int b) {
+void Dot::Set(double a, double b) {
 	x = a;
 	y = b;
 
@@ -60,10 +60,10 @@ Dot Dot::Rotate(double rad) {
 	return ret;
 }
 
-void Dot::SetX(int a) {
+void Dot::SetX(double a) {
 	x = a;
 }
-void Dot::SetY(int a) {
+void Dot::SetY(double a) {
 	y = a;
 }
 void Dot::SetAbs(float a) {
@@ -72,16 +72,16 @@ void Dot::SetAbs(float a) {
 void Dot::SetAng(double a) {
 	ang = a;
 }
-int Dot::GetX() {
+double Dot::GetX() {
 	return x;
 }
-int Dot::GetY() {
+double Dot::GetY() {
 	return y;
 }
-int* Dot::GetXad() {
+double* Dot::GetXad() {
 	return &x;
 }
-int* Dot::GetYad() {
+double* Dot::GetYad() {
 	return &y;
 }
 float Dot::GetAbs() {
@@ -89,4 +89,31 @@ float Dot::GetAbs() {
 }
 double Dot::GetAng() {
 	return ang;
+}
+
+void intDot::Set(int a, int b) {
+	x = a;
+	y = b;
+}
+
+int intDot::GetX() {
+	return x;
+}
+
+int intDot::GetY() {
+	return y;
+}
+
+int* intDot::GetXad() {
+	return &x;
+}
+
+int* intDot::GetYad() {
+	return &y;
+}
+
+Dot intDot::Todouble() {
+	Dot a;
+	a.Set(x, y);
+	return a;
 }

@@ -24,6 +24,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Dot decoi;
 	Player player;
 	Motors motor;
+	intDot mdot;
+	mdot.Set(M_X, M_Y);
 	int Jflag;
 	center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
 	SetMousePoint(M_X, M_Y);
@@ -47,17 +49,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		input.Updata();
 		player.Updata(input,Jflag);
-		decoi = (input.GetMouse() - center);
+		decoi = (input.GetMouse().Todouble() - center);
 		decoi.Updata();
 
 		motor.Calc(decoi);
-		if (!input.GetMouse().IsHitC(M_X, M_Y, M_RANGE))
-			DrawFormatString(100, 100, RED, "OUT!!!!");
+		if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE))
+			DrawFormatString(0, 0, RED, "OUT!");
 
-		input.GetMouse().Draw(RED);
+		input.GetMouse().Todouble().Draw(RED);
 		player.Draw();
 		//motor.Draw();
-		//DrawLineByDot(input.GetMouse(), center, BLUE);
+		//DrawLineByDot(mdot, (mdot + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
+		DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()) * 5), GREEN);
 		DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
 		DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
 		
