@@ -18,10 +18,10 @@ Dot decoi;
 void Player::Updata(Input input,int Jflag) {
 	//プレイヤー上向き時の処理（後で回す）
 	if (input.GetKey(KEY_INPUT_W)) accelerator.SetX(1);
-	else if (input.GetKey(KEY_INPUT_S) && velocity.GetY() < 0) accelerator.SetX(-1);
+	else if (input.GetKey(KEY_INPUT_S)) velocity.Set(velocity.GetX()*0.7, velocity.GetY()*0.7);
 	else accelerator.Set(0, 0);
-	if (input.GetKey(KEY_INPUT_A)) ang += PI / 12.0;
-	if (input.GetKey(KEY_INPUT_D)) ang -= PI / 12.0;
+	if (input.GetKey(KEY_INPUT_A)) ang += PI / 24.0;
+	if (input.GetKey(KEY_INPUT_D)) ang -= PI / 24.0;
 
 	while (ang >= PI * 2)
 		ang -= 2 * PI;
@@ -29,9 +29,9 @@ void Player::Updata(Input input,int Jflag) {
 		ang += 2 * PI;
 
 	if(velocity.GetAbs() < 50)
-		velocity = velocity + accelerator.Rotate(ang) * 3.0; //絶対速度
+		velocity = velocity + accelerator.Rotate(ang) * 1.0; //絶対速度
 
-	velocity.Set(velocity.Rotate(-ang).GetX(), velocity.Rotate(-ang).GetY() * 0.5);//相対速度
+	velocity.Set(velocity.Rotate(-ang).GetX() * 0.999, velocity.Rotate(-ang).GetY() * 0.9);//相対速度
 
 	velocity = velocity.Rotate(ang);//絶対速度
 
