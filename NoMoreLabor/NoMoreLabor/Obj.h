@@ -23,6 +23,7 @@ public:
 	bool IsHitC(int a, int b, int range);
 	void Updata();
 	void Draw(int color);
+	double innerPro(Dot a);
 	Dot Rotate(double rad);
 
 	Dot operator - (Dot a) {//ドットの平行移動

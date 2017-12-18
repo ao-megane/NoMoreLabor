@@ -60,6 +60,10 @@ Dot Dot::Rotate(double rad) {
 	return ret;
 }
 
+double Dot::innerPro(Dot a) {
+	return x*a.x + y*a.y;
+}
+
 void Dot::SetX(double a) {
 	x = a;
 }
