@@ -29,16 +29,19 @@ public:
 	Dot operator - (Dot a) {//ドットの平行移動
 		Dot RE;
 		RE.Set(x - a.x, y - a.y);
+		RE.Updata();
 		return RE;
 	}
 	Dot operator - () {
 		Dot RE;
 		RE.Set(-x, -y);
+		RE.Updata();
 		return RE;
 	}
 	Dot operator + (Dot a) {//ドットの平行移動
 		Dot RE;
 		RE.Set(x + a.x, y + a.y);
+		RE.Updata();
 		return RE;
 	}
 	void operator = (Dot a) {
@@ -50,7 +53,12 @@ public:
 	Dot operator * (int a) {
 		Dot RE;
 		RE.Set(x *= a, y *= a);
+		RE.Updata();
 		return RE;
+	}
+	bool operator != (Dot a) {
+		if (a.x == x && a.y == y) return false;
+		return true;
 	}
 	
 private:

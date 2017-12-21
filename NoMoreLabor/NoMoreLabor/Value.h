@@ -13,6 +13,7 @@ const int DISP_HEIGHT = 800;
 const int KEY_NUM = 6;
 
 const double PI = 3.14159265358979;
+const double gra = 9.8;
 const double rootTwo = 1.4142135624;
 const double rootThree = 1.7320508;
 

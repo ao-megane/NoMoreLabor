@@ -65,7 +65,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		player.Draw();
 		//motor.Draw();
 		//DrawLineByDot(mdot, (mdot + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
-		DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()) * 5), GREEN);
+		DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
 		DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
 		DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
 		
