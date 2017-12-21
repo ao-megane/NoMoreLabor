@@ -37,7 +37,6 @@ void Player::Updata(Input input,int Jflag) {
 	accelerator.Updata();
 	if(velocity.GetAbs() < 50)
 		velocity = velocity + accelerator.Rotate(ang) * 1; //â‘Î‘¬“x
-
 	
 	velocity.Set(velocity.Rotate(-ang).GetX() * 0.999, velocity.Rotate(-ang).GetY() * 0.9);//‘Š‘Î‘¬“x
 

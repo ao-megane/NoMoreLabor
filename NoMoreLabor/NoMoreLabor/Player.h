@@ -19,7 +19,7 @@ public:
 	int GetWeight();
 
 private:
-	Dot precenter;
+	//Dot precenter;
 	Dot center;
 	Dot velocity;//c•ûŒü‚Ì‚İ‚¾‚©‚çint‚Å‚æ‚¢H
 	Dot accelerator;

@@ -25,18 +25,24 @@ void Motors::Calc(Dot f) {//fは位置ベクトル
 		RD = 0.0;
 		LD = decoi * 2 / rootTwo*(-f.GetX());
 	}
-	else if (7.0 / 6.0 * PI <= f.GetAng() && f.GetAng() <= 11.0 / 6.0 * PI) {
+	else if (7.0 / 6.0 * PI <= f.GetAng()/* && f.GetAng() <= 3.0 / 2.0 * PI*/) {
 		UP = 0.0;
 		RD = decoi * (-f.Rotate(2.0/3.0*PI).GetY() + f.Rotate(2.0/3.0*PI).GetX() / rootThree);
 		LD = decoi * 2 / rootTwo*f.Rotate(2.0 / 3.0*PI).GetX();
-	}
+	}/*
+	else if (f.GetAng() >= 3.0 / 2.0 * PI) {
+		UP = 0.0;
+		RD = decoi * 2 / -rootTwo*f.Rotate(2.0 / 3.0*PI).GetX();
+		LD = decoi * -(-f.Rotate(2.0 / 3.0*PI).GetY() + f.Rotate(2.0 / 3.0*PI).GetX() / rootThree);
+	}*/
 }
 
 const int r = 200;
+const double R = 200.0;
 void Motors::Draw() {
-	DrawCircle(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0 - r, UP * 50.0, RED, true);
-	DrawCircle(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, RD * 50.0, RED, true);
-	DrawCircle(DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, LD * 50.0, RED, true);
+	DrawCircle(DISP_WIDTH / 2.0					   , DISP_HEIGHT / 2.0 - r		, UP * R, RED, true);
+	DrawCircle(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, RD * R, RED, true);
+	DrawCircle(DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, LD * R, RED, true);
 
 	DrawFormatString(0, 300, GREEN, "UP : %f", UP);
 	DrawFormatString(0, 320, GREEN, "RD : %f", RD);

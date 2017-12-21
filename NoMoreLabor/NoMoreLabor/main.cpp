@@ -13,7 +13,7 @@ typedef struct {
 
 /*
 TODO
-ì‡êœé¿ëïÇµÇƒí·å¯ó¶ÇÇ®ÇµÇ·ÇÍÇ…Ç∑ÇÈ
+ÉÇÅ[É^Å[
 */
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -62,10 +62,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			DrawFormatString(0, 0, RED, "OUT!");
 
 		input.GetMouse().Todouble().Draw(RED);
-		player.Draw();
-		//motor.Draw();
-		//DrawLineByDot(mdot, (mdot + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
-		DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
+		//player.Draw();
+		motor.Draw();
+		DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
+		//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
+		//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
 		DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
 		DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
 		
