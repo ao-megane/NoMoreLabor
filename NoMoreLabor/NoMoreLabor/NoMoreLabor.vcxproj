@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chore.h" />
+    <ClInclude Include="Detect.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Output.h" />
