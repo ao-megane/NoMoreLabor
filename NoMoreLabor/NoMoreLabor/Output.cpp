@@ -7,6 +7,10 @@ void Motors::Set(float a, float b, float c) {
 	UP = a;
 	RD = b;
 	LD = c;
+
+	if (UP > 1.0) UP = 1.0;
+	if (RD > 1.0) RD = 1.0;
+	if (LD > 1.0) LD = 1.0;
 }
 
 void Motors::Calc(Dot f) {//fは位置ベクトル
@@ -28,6 +32,9 @@ void Motors::Calc(Dot f) {//fは位置ベクトル
 		RD = decoi * (2.0 / rootThree * f.GetAbs() * cos(f.GetAng()) + -f.GetAbs()*(cos(f.GetAng()) / rootThree + sin(f.GetAng())));
 		LD = decoi * -f.GetAbs()*(cos(f.GetAng()) / rootThree + sin(f.GetAng()));
 	}
+	if (UP > 1.0) UP = 1.0;
+	if (RD > 1.0) RD = 1.0;
+	if (LD > 1.0) LD = 1.0;
 }
 
 const int r = 200;

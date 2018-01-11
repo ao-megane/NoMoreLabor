@@ -35,39 +35,36 @@ void Player::Updata(Input input,int Jflag) {
 		ang += 2 * PI;
 
 	accelerator.Updata();
-	if(velocity.GetAbs() < 50)
+	if(velocity.GetAbs() < 50)//制限速度
 		velocity = velocity + accelerator.Rotate(ang) * 1; //絶対速度
+	//													↑加速の具合
 	
-	velocity.Set(velocity.Rotate(-ang).GetX() * 0.999, velocity.Rotate(-ang).GetY() * 0.9);//相対速度
+	velocity.Set(velocity.Rotate(-ang).GetX() * 0.999, velocity.Rotate(-ang).GetY() * 0.8);//相対速度
+	//											↑縦方向の減衰						　↑横方向の減衰
 
 	velocity = velocity.Rotate(ang);//絶対速度
 
-	//velocity.Set(velocity.GetX() * 0.9, velocity.GetY() * 0.9);
-	//velocity.Set(velocity.GetX(),velocity.GetY());
 	velocity.Updata();
 	center = center + velocity;
 
-	if (velocity.GetAbs() != 0 /*&& accelerator.GetAbs() != 0*/) {
-		//printfDx("%6.3f : %f\n", velocity.GetAbs(), 0.5 * weight * velocity.Rotate(-ang).GetX() * velocity.Rotate(-ang).GetX() / velocity.GetAbs() * 1);
+	if (velocity.GetAbs() != 0) {
 		force.SetX(-0.5 * weight * velocity.Rotate(-ang + PI / 2).GetX() * velocity.Rotate(-ang + PI / 2).GetX() / velocity.GetAbs() * 0.5);// 力 = (1/2mv^2)/変位
 		force.SetY(0.5 * weight * velocity.Rotate(-ang + PI / 2).GetY() * velocity.Rotate(-ang + PI / 2).GetY() / velocity.GetAbs() * 0.5);// 力 = (1/2mv^2)/変位
 		if (velocity.Rotate(-ang + PI / 2).GetX() < 0) force.SetX(-force.GetX());
 		if (velocity.Rotate(-ang + PI / 2).GetY() < 0) force.SetY(-force.GetY());
 	}
-	/*force.SetX(velocity.Rotate(-ang + PI/2).GetX() * 0.001 * 100);
-	force.SetY(velocity.Rotate(-ang + PI/2).GetY() * 0.1   * 100);*/
 
 	if (input.GetKey(KEY_INPUT_C)) {
 		center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
 		velocity.Set(0, 0);
-	}
+	}//位置初期化
 	if (center.GetX() > DISP_WIDTH) center.SetX(0);
 	if (center.GetX() < 0) center.SetX(DISP_WIDTH);
 	if (center.GetY() > DISP_HEIGHT) center.SetY(0);
 	if (center.GetY() < 0) center.SetY(DISP_HEIGHT);
+	//ループ処理
 
 	force = force + accelerator.Rotate(PI / 2) * weight;
-	//precenter = center;
 }
 
 Dot a;
