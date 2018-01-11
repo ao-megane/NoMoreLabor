@@ -55,6 +55,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Jflag = 0;
 	//SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
 
+	/*
 	//ハードテスト用プログラム
 	{
 		SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
@@ -99,8 +100,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (input.GetKey(KEY_INPUT_DELETE)) break;
 		}
 	}
+	*/
+
 	//ものほん
-	/*
+	
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		input.Updata();
 
@@ -180,7 +183,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		if (input.GetKey(KEY_INPUT_DELETE)) break;
 	}
-	*/
+	
 	
 	DxLib_End();	// DXライブラリ終了処理
 	return 0;
