@@ -93,6 +93,9 @@ void Player::End() {
 	;
 }
 
+Dot Player::GetPosi() {
+	return center;
+}
 Dot Player::GetVelocity() {
 	return velocity;
 }

@@ -1,4 +1,5 @@
 #include"BackGround.h"
+#include"Chore.h"
 
 int bgHandle1;
 int mapHandle1;
@@ -28,8 +29,14 @@ void Back::Set(int stage) {
 
 }
 
-int Back::Updata(int count) {
-	return 0;
+int Back::Updata(int count,Dot dot) {
+	/*if (IsBlack(mapHandle, dot)) {
+		return 1;
+	}
+	else {
+		return 0;
+	}*/
+	return 1;
 }
 
 void Back::Draw() {

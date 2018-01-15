@@ -15,6 +15,7 @@ typedef struct {
 /*
 TODO
 âÊëúãôÇËorÇ®äGÇ©Ç´
+IsBlackÇ≈ÉGÉâÅ[
 */
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -38,6 +39,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Back back;
 	mdot.Set(M_X, M_Y);
 	int Jflag;
+	int count = 0;
 	center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
 	SetMousePoint(M_X, M_Y);
 
@@ -153,8 +155,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			motor.Calc(decoi);
 			back.Draw();
-			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE))
-				DrawFormatString(0, 0, RED, "OUT!");
+			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE)) {
+				DrawFormatString(0, 50, RED, "OUT!");
+			}
+			if (!back.Updata(count, player.GetPosi())) {
+				DrawFormatString(0, 100, BLUE, "OUT!");
+			}
+
 
 			input.GetMouse().Todouble().Draw(RED);
 			player.Draw();

@@ -12,6 +12,7 @@ public:
 	void Updata(Input input,int Jflag);
 	void Draw();
 	void End();
+	Dot GetPosi();
 	Dot GetVelocity();
 	Dot GetAccelerator();
 	Dot GetForce();

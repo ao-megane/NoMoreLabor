@@ -10,7 +10,7 @@ public:
 	//void Set(float a, float b, float c, float d);
 	void Initialize();
 	void Set(int stage);
-	int Updata(int count);
+	int Updata(int count,Dot dot);
 	void Draw();
 
 private:
