@@ -5,7 +5,7 @@
 #include"Output.h"
 #include"Value.h"
 #include"Player.h"
-
+#include"BackGround.h"
 
 typedef struct {
 	int x, y;
@@ -35,6 +35,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Player player;
 	Motors motor;
 	intDot mdot;
+	Back back;
 	mdot.Set(M_X, M_Y);
 	int Jflag;
 	center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
@@ -56,6 +57,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	motor.Initialize();
 	player.Initialize();
+	back.Initialize();
 	Jflag = 0;
 	//SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
 
@@ -116,7 +118,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{ 200,500,"スタート2(仮)" },
 			{ 200,700,"終了" },
 		};
-		switch (sceFlag){//シミュレータの流れを管理するスイッチ
+		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
 		case 0://タイトル
 			//計算
 			if (input.GetKey(KEY_INPUT_S) == 1) {
@@ -133,8 +135,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					MenuElement[i].x = 200;
 				}
 			}
-				
-			if (input.GetClick() == 1) sceFlag = stageFlag+1;
+
+			if (input.GetClick() == 1) {
+				back.Set(0);
+				sceFlag = stageFlag + 1;
+			}
 
 			for (int i = 0; i < 3; i++) {
 				//DrawFormatString(MenuElement[i].x, MenuElement[i].y, GetColor(225, 225, 225), MenuElement[i].name);
@@ -142,13 +147,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			break;
 		case 1://リアルモード
-			player.Updata(input,Jflag);
+			player.Updata(input, Jflag);
 			decoi = (input.GetMouse().Todouble() - center);
 			decoi.Updata();
 
 			motor.Calc(decoi);
+			back.Draw();
 			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE))
-			DrawFormatString(0, 0, RED, "OUT!");
+				DrawFormatString(0, 0, RED, "OUT!");
 
 			input.GetMouse().Todouble().Draw(RED);
 			player.Draw();
@@ -158,29 +164,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
 			DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
 			DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
-			break;
-		case 2://アンリアルモード
-			player.Updata(input,Jflag);
-			decoi = (input.GetMouse().Todouble() - center);
-			decoi.Updata();
 
-			motor.Calc(decoi);
-			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE))
-			DrawFormatString(0, 0, RED, "OUT!");
+			break;
+		//case 2://アンリアルモード
+		//	player.Updata(input,Jflag);
+		//	decoi = (input.GetMouse().Todouble() - center);
+		//	decoi.Updata();
 
-			input.GetMouse().Todouble().Draw(RED);
-			player.Draw();
-			//motor.Draw();
-			//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
-			//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
-			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
-			DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
-			DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
-			break;
-		case 3://クレジット
-			break;
-		case 4://終了
-			break;
+		//	motor.Calc(decoi);
+		//	if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE))
+		//	DrawFormatString(0, 0, RED, "OUT!");
+
+		//	input.GetMouse().Todouble().Draw(RED);
+		//	player.Draw();
+		//	//motor.Draw();
+		//	//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
+		//	//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
+		//	DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
+		//	DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
+		//	DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
+		//	break;
+		//case 3://クレジット
+		//	break;
+		//case 4://終了
+		//	break;
 		default:
 			break;
 		}
