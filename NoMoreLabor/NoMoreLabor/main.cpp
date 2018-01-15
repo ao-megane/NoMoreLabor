@@ -5,6 +5,8 @@
 #include"Output.h"
 #include"Value.h"
 #include"Player.h"
+#include "SpidarMouse.h" //SpidarMouseのヘッドを読み込む
+#pragma comment (lib, "SpidarMouse.lib") //SpidarMouseのライブラリを読み込む
 
 typedef struct {
 	int x, y;
@@ -17,6 +19,12 @@ TODO
 */
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+
+	if (OpenSpidarMouse() != 1)
+	{
+		printf("SPIDAR-mouseの接続が確認できませんでした。\n");
+		return -1;
+	}
 
 	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);
 	{
