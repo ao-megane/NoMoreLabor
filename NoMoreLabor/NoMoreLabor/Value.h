@@ -19,8 +19,8 @@ const double rootThree = 1.7320508;
 
 const double F_ABS_MAX = DISP_WIDTH;
 
-const int P_HEIGHT = 50;//プレイヤーの描画の大きさ
-const int P_WIDTH = 50;
+const int P_HEIGHT = 544 * 0.1;//プレイヤーの描画の大きさ
+const int P_WIDTH = 928 * 0.1;
 
 const int M_X = DISP_WIDTH - 100;
 const int M_Y = DISP_HEIGHT - 100;

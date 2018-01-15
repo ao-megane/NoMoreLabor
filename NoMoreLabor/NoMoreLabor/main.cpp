@@ -5,8 +5,7 @@
 #include"Output.h"
 #include"Value.h"
 #include"Player.h"
-#include "SpidarMouse.h" //SpidarMouseのヘッドを読み込む
-#pragma comment (lib, "SpidarMouse.lib") //SpidarMouseのライブラリを読み込む
+
 
 typedef struct {
 	int x, y;
@@ -55,11 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 	/*----------------ここまで---------------------*/
 
-	if (OpenSpidarMouse() != 1)
-	{
-		printfDx("SUCCESS!");
-	}
-
+	motor.Initialize();
 	player.Initialize();
 	Jflag = 0;
 	//SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);

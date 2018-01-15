@@ -2,6 +2,14 @@
 #include"DxLib.h"
 #include"Value.h"
 #include"math.h"
+#include "SpidarMouse.h" //SpidarMouseのヘッドを読み込む
+#pragma comment (lib, "SpidarMouse.lib") //SpidarMouseのライブラリを読み込む
+
+void Motors::Initialize() {
+	if (OpenSpidarMouse() != 1){
+		printfDx("No Connect");
+	}
+}
 
 void Motors::Set(float a, float b, float c) {
 	UP = a;
