@@ -20,11 +20,7 @@ TODO
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
-	if (OpenSpidarMouse() != 1)
-	{
-		printf("SPIDAR-mouseÇÃê⁄ë±Ç™ämîFÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩÅB\n");
-		return -1;
-	}
+	
 
 	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);
 	{
@@ -58,6 +54,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//printfDx("CreateFontToHandle");
 	}
 	/*----------------Ç±Ç±Ç‹Ç≈---------------------*/
+
+	if (OpenSpidarMouse() != 1)
+	{
+		printfDx("SUCCESS!");
+	}
 
 	player.Initialize();
 	Jflag = 0;
