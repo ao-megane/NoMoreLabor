@@ -20,8 +20,6 @@ IsBlackでエラー
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
-	
-
 	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);
 	{
 		SetWindowSizeExtendRate(0.7);
@@ -40,6 +38,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	mdot.Set(M_X, M_Y);
 	int Jflag;
 	int count = 0;
+	int flag = 0;
+	float yunkawa = 0;
 	center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
 	SetMousePoint(M_X, M_Y);
 
@@ -111,13 +111,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	*/
 
 	//ものほん
+
 	
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		input.Updata();
 
 		MenuElement_t MenuElement[3] = {
-			{ 100, 300, "スタート1(仮)" },
-			{ 200,500,"スタート2(仮)" },
+			{ 100, 300, "水上バイクシミュレータ" },
+			{ 200,500,"ハードテスト" },
 			{ 200,700,"終了" },
 		};
 		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
@@ -148,11 +149,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				DrawStringToHandle(MenuElement[i].x, MenuElement[i].y, MenuElement[i].name, GetColor(225, 225, 225), tanuki);
 			}
 			break;
-		case 1://リアルモード
+		case 1://水上バイク
 			player.Updata(input, Jflag);
 			decoi = (input.GetMouse().Todouble() - center);
 			decoi.Updata();
-
 			motor.Calc(decoi);
 			back.Draw();
 			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE)) {
@@ -173,33 +173,58 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
 
 			break;
-		//case 2://アンリアルモード
-		//	player.Updata(input,Jflag);
-		//	decoi = (input.GetMouse().Todouble() - center);
-		//	decoi.Updata();
+		case 2://ハードテスト
+			if (yunkawa < 0) yunkawa = 0;
+			//input.Updata();
+			if (input.GetKey(KEY_INPUT_W) == 1) flag = 0;
+			if (input.GetKey(KEY_INPUT_A) == 1) flag = 1;
+			if (input.GetKey(KEY_INPUT_D) == 1) flag = 2;
+			if (input.GetKey(KEY_INPUT_S) == 1) {
+				SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
+				flag = 3;
+			}
+			if (input.GetKey(KEY_INPUT_UP)) yunkawa += 0.01;
+			if (input.GetKey(KEY_INPUT_DOWN)) yunkawa -= 0.01;
 
-		//	motor.Calc(decoi);
-		//	if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE))
-		//	DrawFormatString(0, 0, RED, "OUT!");
-
-		//	input.GetMouse().Todouble().Draw(RED);
-		//	player.Draw();
-		//	//motor.Draw();
-		//	//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
-		//	//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
-		//	DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
-		//	DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
-		//	DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
-		//	break;
-		//case 3://クレジット
-		//	break;
-		//case 4://終了
-		//	break;
+			switch (flag)
+			{
+			case 0:
+				motor.Set(yunkawa, 0, 0);
+				break;
+			case 1:
+				motor.Set(0, 0, yunkawa);
+				break;
+			case 2:
+				motor.Set(0, yunkawa, 0);
+				break;
+			case 3:
+				decoi = (input.GetMouse().Todouble() - center);
+				decoi.Updata();
+				motor.Calc(decoi);
+				//motor.Draw();
+				DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
+				break;
+			default:
+				break;
+			}
+			motor.Draw();
+			break;
+		case 3://クレジット
+			break;
+		case 4://終了
+			break;
 		default:
 			break;
 		}
 
-		if (input.GetKey(KEY_INPUT_DELETE)) break;
+		if (input.GetKey(KEY_INPUT_DELETE) == 1) {
+			if (sceFlag == 0) {
+				break;
+			}
+			else {
+				sceFlag = 0;
+			}
+		}
 	}
 	
 	

@@ -22,12 +22,12 @@ void Player::Updata(Input input,int Jflag) {
 
 
 	//プレイヤー上向き時の処理（後で回す）
-	if (input.GetKey(KEY_INPUT_W)) accelerator.SetX(1);
+	if (input.GetKey(KEY_INPUT_W)) accelerator.SetX(ACCELE);
 	//else if (input.GetKey(KEY_INPUT_S)) velocity.Set(velocity.GetX()*0.7, velocity.GetY()*0.7);
-	else if (input.GetKey(KEY_INPUT_S) && velocity.Rotate(-ang).GetX() > 1) accelerator.SetX(-0.5);
+	else if (input.GetKey(KEY_INPUT_S) && velocity.Rotate(-ang).GetX() > 1) accelerator.SetX(BRAKE);
 	else accelerator.Set(0, 0);
-	if (input.GetKey(KEY_INPUT_A)) ang += PI / 24.0;
-	if (input.GetKey(KEY_INPUT_D)) ang -= PI / 24.0;
+	if (input.GetKey(KEY_INPUT_A)) ang += ADDED_ANGLE;
+	if (input.GetKey(KEY_INPUT_D)) ang -= ADDED_ANGLE;
 
 	while (ang >= PI * 2)
 		ang -= 2 * PI;
@@ -36,10 +36,10 @@ void Player::Updata(Input input,int Jflag) {
 
 	accelerator.Updata();
 	if(velocity.GetAbs() < 50)//制限速度
-		velocity = velocity + accelerator.Rotate(ang) * 1; //絶対速度
+		velocity = velocity + accelerator.Rotate(ang); //絶対速度
 	//													↑加速の具合
 	
-	velocity.Set(velocity.Rotate(-ang).GetX() * 0.999, velocity.Rotate(-ang).GetY() * 0.8);//相対速度
+	velocity.Set(velocity.Rotate(-ang).GetX() * DECAY_STRAIGHT, velocity.Rotate(-ang).GetY() *DECAY_SIDE);//相対速度
 	//											↑縦方向の減衰						　↑横方向の減衰
 
 	velocity = velocity.Rotate(ang);//絶対速度

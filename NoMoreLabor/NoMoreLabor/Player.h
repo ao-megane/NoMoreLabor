@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include"Obj.h"
 #include"Input.h"
+#include"Value.h"
 
 class Player
 {
