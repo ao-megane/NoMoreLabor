@@ -3,11 +3,14 @@
 
 int bgHandle1;
 int mapHandle1;
+int softmapHandle1;
 int mapHandle2;
 
 void Back::Initialize() {
 	bgHandle1 = LoadGraph("images/map/BackGround.png");
 	mapHandle1 = LoadGraph("images/map/map1.png");
+	softmapHandle1 = LoadSoftImage("images/map/map1.png");
+
 }
 
 void Back::Set(int stage) {
@@ -16,6 +19,7 @@ void Back::Set(int stage) {
 	case 0:
 		bgHandle = bgHandle1;
 		mapHandle = mapHandle1;
+		softmapHandle = softmapHandle1;
 		break;
 	case 1:
 		break;
@@ -26,16 +30,16 @@ void Back::Set(int stage) {
 	}
 	bgHandle = bgHandle1;
 	mapHandle = mapHandle1;
-
+	softmapHandle = softmapHandle1;
 }
 
 int Back::Updata(int count,Dot dot) {
-	/*if (IsBlack(mapHandle, dot)) {
+	if (IsBlack(softmapHandle, dot)) {
 		return 1;
 	}
 	else {
 		return 0;
-	}*/
+	}
 	return 1;
 }
 

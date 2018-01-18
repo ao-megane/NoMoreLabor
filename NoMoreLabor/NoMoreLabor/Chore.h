@@ -4,6 +4,6 @@
 
 void DrawLineByDot(Dot a, Dot b,int color);
 
-bool IsBlack(int imageHandle,Dot a);
+bool IsBlack(int imageHandle,Dot dot);
 
 #endif // !CHORE_H

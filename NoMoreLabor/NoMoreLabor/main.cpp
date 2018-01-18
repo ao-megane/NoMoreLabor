@@ -61,55 +61,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	player.Initialize();
 	back.Initialize();
 	Jflag = 0;
-	//SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
-
-	/*
-	//ハードテスト用プログラム
-	{
-		SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
-		int flag = 0;
-		float yunkawa = 0;
-		while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
-			input.Updata();
-			if (input.GetKey(KEY_INPUT_W) == 1) flag = 0;
-			if (input.GetKey(KEY_INPUT_A) == 1) flag = 1;
-			if (input.GetKey(KEY_INPUT_D) == 1) flag = 2;
-			if (input.GetKey(KEY_INPUT_S) == 1) {
-				SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
-				flag = 3;
-			}
-			if (input.GetKey(KEY_INPUT_UP)) yunkawa += 0.01;
-			if (input.GetKey(KEY_INPUT_DOWN)) yunkawa -= 0.01;
-
-			switch (flag)
-			{
-			case 0:
-				motor.Set(yunkawa, 0, 0);
-				break;
-			case 1:
-				motor.Set(0, 0, yunkawa);
-				break;
-			case 2:
-				motor.Set(0, yunkawa, 0);
-				break;
-			case 3:
-				decoi = (input.GetMouse().Todouble() - center);
-				decoi.Updata();
-
-				motor.Calc(decoi);
-				//motor.Draw();
-				DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
-
-				break;
-			default:
-				break;
-			}
-			motor.Draw();
-			if (input.GetKey(KEY_INPUT_DELETE)) break;
-		}
-	}
-	*/
-
+	
 	//ものほん
 
 	
@@ -145,7 +97,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			for (int i = 0; i < 3; i++) {
-				//DrawFormatString(MenuElement[i].x, MenuElement[i].y, GetColor(225, 225, 225), MenuElement[i].name);
 				DrawStringToHandle(MenuElement[i].x, MenuElement[i].y, MenuElement[i].name, GetColor(225, 225, 225), tanuki);
 			}
 			break;
@@ -158,7 +109,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE)) {
 				DrawFormatString(0, 50, RED, "OUT!");
 			}
-			if (!back.Updata(count, player.GetPosi())) {
+			if (!back.Updata(count, player.GetCenter())) {
 				DrawFormatString(0, 100, BLUE, "OUT!");
 			}
 
@@ -227,7 +178,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 	}
 	
-	
+	InitSoftImage();
 	DxLib_End();	// DXライブラリ終了処理
 	return 0;
 }

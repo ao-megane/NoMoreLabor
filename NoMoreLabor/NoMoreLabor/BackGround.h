@@ -16,6 +16,7 @@ public:
 private:
 	int bgHandle;
 	int mapHandle;
+	int softmapHandle;
 	
 };
 

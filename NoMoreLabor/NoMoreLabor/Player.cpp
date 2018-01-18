@@ -20,7 +20,6 @@ Dot decoi;
 void Player::Updata(Input input,int Jflag) {
 	force.Set(0, 0);//force初期化
 
-
 	//プレイヤー上向き時の処理（後で回す）
 	if (input.GetKey(KEY_INPUT_W)) accelerator.SetX(ACCELE);
 	//else if (input.GetKey(KEY_INPUT_S)) velocity.Set(velocity.GetX()*0.7, velocity.GetY()*0.7);
@@ -93,7 +92,7 @@ void Player::End() {
 	;
 }
 
-Dot Player::GetPosi() {
+Dot Player::GetCenter() {
 	return center;
 }
 Dot Player::GetVelocity() {
