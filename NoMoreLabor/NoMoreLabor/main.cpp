@@ -66,10 +66,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	player.Initialize();
 	back.Initialize();
 	Jflag = 0;
-	
-	//‚à‚Ì‚Ù‚ñ
 
-	
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		input.Updata();
 
@@ -91,7 +88,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			if (input.GetClick() == 1) {
+			if (input.GetClick() == 1 || input.GetKey(KEY_INPUT_RETURN)) {
 				back.Set(0);
 				sceFlag = stageFlag + 1;
 				if(sceFlag == 1) SetMousePoint(M_X, M_Y);

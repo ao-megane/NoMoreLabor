@@ -24,6 +24,7 @@ const int P_HEIGHT = 544 * 0.05;//ƒvƒŒƒCƒ„[‚Ì•`‰æ‚Ì‘å‚«‚³
 const int P_WIDTH = 928 * 0.05;
 const double ACCELE = 1.0;
 const double BRAKE = -0.5;
+const double LIMIT = 20.0;
 const double ADDED_ANGLE = PI / 24.0;
 const double DECAY_STRAIGHT = 0.999;
 const double DECAY_SIDE = 0.8;
