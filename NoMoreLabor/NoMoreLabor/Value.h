@@ -5,6 +5,7 @@
 const int RED = GetColor(255, 0, 0);
 const int GREEN = GetColor(0, 255, 0);
 const int BLUE = GetColor(0, 0, 255);
+const int WHITE = GetColor(255, 255, 255);
 
 const int DISP_WIDTH = 1280;
 const int DISP_HEIGHT = 800;
@@ -19,8 +20,8 @@ const double rootThree = 1.7320508;
 
 const double F_ABS_MAX = DISP_WIDTH;
 
-const int P_HEIGHT = 544 * 0.1;//プレイヤーの描画の大きさ
-const int P_WIDTH = 928 * 0.1;
+const int P_HEIGHT = 544 * 0.05;//プレイヤーの描画の大きさ
+const int P_WIDTH = 928 * 0.05;
 const double ACCELE = 1.0;
 const double BRAKE = -0.5;
 const double ADDED_ANGLE = PI / 24.0;

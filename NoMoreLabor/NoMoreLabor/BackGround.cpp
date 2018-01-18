@@ -40,7 +40,7 @@ int Back::Updata(int count,Dot dot) {
 	else {
 		return 0;
 	}
-	return 1;
+	//return 1;
 }
 
 void Back::Draw() {
