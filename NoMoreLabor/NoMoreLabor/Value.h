@@ -35,7 +35,7 @@ const int M_RANGE = 80;
 
 const int MAX_SPEED = 40;
 
-const int WAVE_INTERVAL = 3 * 60;//フレーム
+const int WAVE_INTERVAL = 20 * 60;//フレーム
 const int WAVE_SPEED = 2;//pixel / frame
 const int WAVE_BAND = 50;
 

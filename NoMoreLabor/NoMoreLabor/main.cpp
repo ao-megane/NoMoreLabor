@@ -123,6 +123,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			input.GetMouse().Todouble().Draw(RED);
 			player.Draw();
+			wave.Draw();
 			//motor.Draw();
 			//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
 			//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
