@@ -6,6 +6,7 @@
 #include"Value.h"
 #include"Player.h"
 #include"BackGround.h"
+#include"Wave.h"
 
 typedef struct {
 	int x, y;
@@ -15,7 +16,9 @@ typedef struct {
 /*
 TODO
 画像漁りorお絵かき
-IsBlackでエラー
+プレイヤー、操作性改善
+力の調整
+波クラスの実装
 */
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -35,6 +38,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Motors motor;
 	intDot mdot;
 	Back back;
+	Wave wave;
 	mdot.Set(M_X, M_Y);
 	int Jflag;
 	int count = 0;
@@ -65,6 +69,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	motor.Initialize();
 	player.Initialize();
 	back.Initialize();
+	wave.Initialize();
+
 	Jflag = 0;
 
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
@@ -90,6 +96,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (input.GetClick() == 1 || input.GetKey(KEY_INPUT_RETURN)) {
 				back.Set(0);
+				count = 0;
 				sceFlag = stageFlag + 1;
 				if(sceFlag == 1) SetMousePoint(M_X, M_Y);
 			}
@@ -100,6 +107,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		case 1://水上バイク
 			player.Updata(input, Jflag);
+			wave.Set(count);
+			wave.Updata(count);
 			decoi = (input.GetMouse().Todouble() - center);
 			decoi.Updata();
 			motor.Calc(decoi);
@@ -175,6 +184,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				sceFlag = 0;
 			}
 		}
+		count++;
 	}
 	
 	InitSoftImage();

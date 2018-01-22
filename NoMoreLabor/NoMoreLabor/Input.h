@@ -22,15 +22,4 @@ private:
 	int key[256];
 };
 
-//Input::Input(){
-//	//m = Dot();
-//	key[256] = { 0 };
-//}
-//
-//Input::~Input(){
-//	//m.~Dot();
-//	key[256] = { 0 };
-//}
-
-
 #endif // !INPUT_H

@@ -9,6 +9,9 @@ void Motors::Initialize() {
 	if (OpenSpidarMouse() != 1){
 		printfDx("No Connect");
 	}
+	else {
+		printfDx("Connecting!");
+	}
 }
 
 void Motors::Set(float a, float b, float c) {
