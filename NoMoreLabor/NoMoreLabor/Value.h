@@ -41,6 +41,6 @@ const int WAVE_BAND = 50;
 
 const int SPL_NUM = 15;
 const int SPL_INTERVAL = 0.5 * 60;//フレーム
-const int SPL_LIFETIME = 3 * 60;
+const int SPL_LIFETIME = 3 * 60;//フレーム
 
 #endif // !VALUE_H

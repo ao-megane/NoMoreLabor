@@ -25,6 +25,10 @@ void Player::SetJump(int count) {
 void Player::UpdataJump(int count) {
 	enlarge = 1.0 + sin(PI / 60.0 * (count - bodyClock));
 	center = center + velocity;
+	if (center.GetX() > DISP_WIDTH) center.SetX(0);
+	if (center.GetX() < 0) center.SetX(DISP_WIDTH);
+	if (center.GetY() > DISP_HEIGHT) center.SetY(0);
+	if (center.GetY() < 0) center.SetY(DISP_HEIGHT);
 	if ((count - bodyClock) >= 60.0) {
 		enlarge = 1.0;
 		state = 0;

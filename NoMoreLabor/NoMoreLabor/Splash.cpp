@@ -12,6 +12,7 @@ void Splash::Initialize() {
 	center.Set(0,0);
 	ang = 0;
 	isExist = false;
+	enlarge = 0;
 }
 
 void Splash::Set(int count, Dot p_center, int p_ang) {
@@ -19,10 +20,11 @@ void Splash::Set(int count, Dot p_center, int p_ang) {
 	center = p_center;
 	ang = p_ang;
 	isExist = true;
+	enlarge = 1.0;
 }
 
 int Splash::Updata(int count) {
-	enlarge = 1.0 + sin(PI / SPL_LIFETIME / 2 * (count - bodyClock));//‚±‚±‰ö‚µ‚¢
+	enlarge = 1.0 + sin(PI / 2.0 / SPL_LIFETIME * (count - bodyClock));//‚±‚±‰ö‚µ‚¢
 
 	if ((count - bodyClock) >= SPL_LIFETIME) {
 		enlarge = 0;
@@ -41,6 +43,7 @@ Dot c2;
 Dot d2;
 Dot otori;
 void Splash::Draw() {
+	if (!isExist) return;
 	otori.Set(-P_WIDTH / 2, -P_HEIGHT / 2);
 	a2 = otori.Rotate(ang) * enlarge + center;
 	otori.Set(+P_WIDTH / 2, -P_HEIGHT / 2);
@@ -56,6 +59,12 @@ void Splash::Draw() {
 		d2.GetX(), d2.GetY(),
 		image, true
 		);
+	/*DrawLineByDot(a2, b2, RED);
+	DrawLineByDot(b2, c2, RED);
+	DrawLineByDot(c2, d2, RED);
+	DrawLineByDot(d2, a2, RED);*/
+	//DrawModiGraph(0, 0, 300, 0, 300, 300, 0, 300, image, false);
+	//printfDx("DRAW");
 }
 
 Splash splashes[SPL_NUM];
@@ -65,18 +74,24 @@ void SplashMngInitialize() {
 	}
 	image = LoadGraph("images/splash/normal.png");
 }
+
 void SplashMngUpdata(int count, Dot p_center,int p_ang) {
-	if (count % SPL_INTERVAL) {
+	if (count % SPL_INTERVAL == 0) {
 		for (int i = 0; i < SPL_NUM; i++) {
 			if (!splashes[i].GetisExist()) {
+				printfDx("BORN!%d", i);
 				splashes[i].Set(count, p_center, p_ang);
 				break;
 			}
 		}
+	}
+	for (int i = 0; i < SPL_NUM; i++) {
+		if (splashes[i].GetisExist())splashes[i].Updata(count);
 	}
 }
 void SplashMngDraw() {
 	for (int i = 0; i < SPL_NUM; i++) {
 		splashes[i].Draw();
 	}
+	//DrawModiGraph(0, 0, 300, 0, 300, 300, 0, 300, image, false);
 }
