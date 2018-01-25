@@ -28,6 +28,7 @@ const double LIMIT = 20.0/2;
 const double ADDED_ANGLE = PI / 24.0/2.0;
 const double DECAY_STRAIGHT = 0.999;
 const double DECAY_SIDE = 0.8;
+const double JUMPING_TIME = 30.0;
 
 const int M_X = DISP_WIDTH - 100;
 const int M_Y = DISP_HEIGHT - 100;
@@ -40,7 +41,7 @@ const int WAVE_SPEED = 2;//pixel / frame
 const int WAVE_BAND = 50;
 
 const int SPL_NUM = 100;
-const int SPL_INTERVAL = 0.1 * 60;//フレーム
+const int SPL_INTERVAL = 0.05 * 60;//フレーム
 const double SPL_LIFETIME = 3.0 * 60.0;//フレーム
 
 #endif // !VALUE_H
