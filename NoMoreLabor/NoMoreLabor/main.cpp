@@ -106,9 +106,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			break;
 		case 1://水上バイク
-			player.Updata(input, Jflag);
 			wave.Set(count);
 			wave.Updata(count);
+			player.Updata(input, wave.IsJump(player.GetCenter()),count);
 			decoi = (input.GetMouse().Todouble() - center);
 			decoi.Updata();
 			motor.Calc(decoi);
@@ -133,17 +133,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			break;
 		case 2://ハードテスト
-			if (yunkawa < 0) yunkawa = 0;
+			
 			//input.Updata();
 			if (input.GetKey(KEY_INPUT_W) == 1) flag = 0;
 			if (input.GetKey(KEY_INPUT_A) == 1) flag = 1;
 			if (input.GetKey(KEY_INPUT_D) == 1) flag = 2;
 			if (input.GetKey(KEY_INPUT_S) == 1) {
 				SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
+				motor.Set(0, 0, 0);
+				yunkawa = 0;
 				flag = 3;
 			}
 			if (input.GetKey(KEY_INPUT_UP)) yunkawa += 0.01;
 			if (input.GetKey(KEY_INPUT_DOWN)) yunkawa -= 0.01;
+			if (yunkawa < 0) yunkawa = 0;
 
 			switch (flag)
 			{
@@ -160,7 +163,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				decoi = (input.GetMouse().Todouble() - center);
 				decoi.Updata();
 				motor.Calc(decoi);
-				//motor.Draw();
 				DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
 				break;
 			default:

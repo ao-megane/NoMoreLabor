@@ -36,3 +36,7 @@ void FpsTimeFanction() {
 	return;
 }
 
+double GetFPS() {
+	return Fps;
+}
+

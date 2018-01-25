@@ -1,6 +1,7 @@
 #include"Output.h"
 #include"DxLib.h"
 #include"Value.h"
+#include"Chore.h"
 #include"math.h"
 #include "SpidarMouse.h" //SpidarMouseのヘッドを読み込む
 #pragma comment (lib, "SpidarMouse.lib") //SpidarMouseのライブラリを読み込む
@@ -12,6 +13,10 @@ void Motors::Initialize() {
 	else {
 		printfDx("Connecting!");
 	}
+	UP = 0.0;
+	RD = 0.0;
+	LD = 0.0;
+	SPE = 0.0;
 }
 
 void Motors::Set(float a, float b, float c) {
@@ -22,6 +27,7 @@ void Motors::Set(float a, float b, float c) {
 	if (UP > 1.0) UP = 1.0;
 	if (RD > 1.0) RD = 1.0;
 	if (LD > 1.0) LD = 1.0;
+	if (SPE > 1.0) SPE = 1.0;
 }
 
 void Motors::Calc(Dot f) {//fは位置ベクトル
@@ -46,11 +52,14 @@ void Motors::Calc(Dot f) {//fは位置ベクトル
 	if (UP > 1.0) UP = 1.0;
 	if (RD > 1.0) RD = 1.0;
 	if (LD > 1.0) LD = 1.0;
+	if (SPE > 1.0) SPE = 1.0;
 }
 
 const int r = 200;
 const double R = 200.0;
 void Motors::Draw() {
+	SetDutyOnCh(UP, RD, LD, SPE, 1000.0/GetFPS());
+
 	DrawCircle(DISP_WIDTH / 2.0					   , DISP_HEIGHT / 2.0 - r		, UP * R, RED, true);
 	DrawCircle(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, RD * R, RED, true);
 	DrawCircle(DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, LD * R, RED, true);
@@ -58,6 +67,8 @@ void Motors::Draw() {
 	DrawFormatString(0, 300, GREEN, "UP : %f", UP);
 	DrawFormatString(0, 320, GREEN, "RD : %f", RD);
 	DrawFormatString(0, 340, GREEN, "LD : %f", LD);
+	DrawFormatString(0, 360, GREEN, "SPE: %f", SPE);
+	DrawFormatString(0, 380, GREEN, "DUR: %f", 1000.0 / GetFPS());
 
 	DrawLine(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0 - r, DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, GREEN);
 	DrawLine(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, GREEN);

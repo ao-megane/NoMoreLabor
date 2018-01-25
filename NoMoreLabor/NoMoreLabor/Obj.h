@@ -56,6 +56,12 @@ public:
 		RE.Updata();
 		return RE;
 	}
+	Dot operator * (double a) {
+		Dot RE;
+		RE.Set(x *= a, y *= a);
+		RE.Updata();
+		return RE;
+	}
 	bool operator != (Dot a) {
 		if (a.x == x && a.y == y) return false;
 		return true;

@@ -12,6 +12,7 @@ public:
 	void Set(int count);
 	int Updata(int count);
 	void Draw();
+	bool IsJump(Dot center);
 
 private:
 	Dot Point1;

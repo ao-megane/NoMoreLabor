@@ -14,10 +14,36 @@ void Player::Initialize() {
 	ang = 0;
 	NormalImage = LoadGraph("images/player/normal.png");
 	image = NormalImage;
+	enlarge = 1;
+	state = 0;
+}
+
+void Player::SetJump(int count) {
+	state = 1;
+	bodyClock = count;
+}
+void Player::UpdataJump(int count) {
+	enlarge = 1.0 + sin(PI / 60.0 * (count - bodyClock));
+	if ((count - bodyClock) >= 60.0) {
+		enlarge = 1.0;
+		state = 0;
+	}
 }
 
 Dot decoi;
-void Player::Updata(Input input,int Jflag) {
+void Player::Updata(Input input,bool Jflag,int count) {
+
+	/*ジャンプ処理*/
+	if (Jflag && GetState() == 0) {
+		printfDx("JUMP!!!");
+		SetJump(count);
+	}
+	if (GetState() == 1) {
+		UpdataJump(count);
+		return;
+	}
+	/*ここまで*/
+
 	force.Set(0, 0);//force初期化
 
 	//プレイヤー上向き時の処理（後で回す）
@@ -72,13 +98,13 @@ Dot c;
 Dot d;
 void Player::Draw() {
 	decoi.Set(- P_WIDTH / 2, - P_HEIGHT / 2);
-	a = decoi.Rotate(ang) + center;
+	a = decoi.Rotate(ang) * enlarge + center;
 	decoi.Set(+ P_WIDTH / 2, - P_HEIGHT / 2);
-	b = decoi.Rotate(ang) + center;
+	b = decoi.Rotate(ang) * enlarge + center;
 	decoi.Set(+ P_WIDTH / 2, + P_HEIGHT / 2);
-	c = decoi.Rotate(ang) + center;
+	c = decoi.Rotate(ang) * enlarge + center;
 	decoi.Set(- P_WIDTH / 2, + P_HEIGHT / 2);
-	d = decoi.Rotate(ang) + center;
+	d = decoi.Rotate(ang) * enlarge + center;
 	DrawModiGraph(
 		a.GetX(), a.GetY(),
 		b.GetX(), b.GetY(), 
@@ -109,6 +135,9 @@ double Player::GetAng() {
 }
 int Player::GetWeight() {
 	return weight;
+}
+int Player::GetState() {
+	return state;
 }
 
 
