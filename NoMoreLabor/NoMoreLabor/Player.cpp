@@ -24,6 +24,7 @@ void Player::SetJump(int count) {
 }
 void Player::UpdataJump(int count) {
 	enlarge = 1.0 + sin(PI / 60.0 * (count - bodyClock));
+	center = center + velocity;
 	if ((count - bodyClock) >= 60.0) {
 		enlarge = 1.0;
 		state = 0;
@@ -35,7 +36,7 @@ void Player::Updata(Input input,bool Jflag,int count) {
 
 	/*ƒWƒƒƒ“ƒvˆ—*/
 	if (Jflag && GetState() == 0) {
-		printfDx("JUMP!!!");
+		//printfDx("JUMP!!!");
 		SetJump(count);
 	}
 	if (GetState() == 1) {

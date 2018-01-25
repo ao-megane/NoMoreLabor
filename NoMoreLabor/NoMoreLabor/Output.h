@@ -10,7 +10,8 @@ public:
 	//void Set(float a, float b, float c, float d);
 	void Initialize();
 	void Set(float u, float r, float l);
-	void Calc(Dot F);
+	void SetSPE(float a);
+	void Calc(Dot F,int playerState);
 	void Draw();
 
 private:

@@ -111,7 +111,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			player.Updata(input, wave.IsJump(player.GetCenter()),count);
 			decoi = (input.GetMouse().Todouble() - center);
 			decoi.Updata();
-			motor.Calc(decoi);
+			motor.Calc(decoi,player.GetState());
 			back.Draw();
 			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE)) {
 				DrawFormatString(0, 50, RED, "OUT!");
@@ -122,8 +122,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 			input.GetMouse().Todouble().Draw(RED);
-			player.Draw();
 			wave.Draw();
+			player.Draw();
 			//motor.Draw();
 			//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
 			//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
@@ -162,8 +162,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			case 3:
 				decoi = (input.GetMouse().Todouble() - center);
 				decoi.Updata();
-				motor.Calc(decoi);
+				motor.Calc(decoi,0);
 				DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
+				if (input.GetClick() > 0) motor.SetSPE(0.3);
 				break;
 			default:
 				break;

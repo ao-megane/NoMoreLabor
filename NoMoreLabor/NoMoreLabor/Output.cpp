@@ -29,8 +29,12 @@ void Motors::Set(float a, float b, float c) {
 	if (LD > 1.0) LD = 1.0;
 	if (SPE > 1.0) SPE = 1.0;
 }
+void Motors::SetSPE(float a) {
+	SPE = a;
+	if (SPE > 1.0) SPE = 1.0;
+}
 
-void Motors::Calc(Dot f) {//fは位置ベクトル
+void Motors::Calc(Dot f,int playerState) {//fは位置ベクトル
 	double decoi;
 	decoi = 1.0 / F_ABS_MAX;
 
@@ -49,6 +53,7 @@ void Motors::Calc(Dot f) {//fは位置ベクトル
 		RD = decoi * (2.0 / rootThree * f.GetAbs() * cos(f.GetAng()) + -f.GetAbs()*(cos(f.GetAng()) / rootThree + sin(f.GetAng())));
 		LD = decoi * -f.GetAbs()*(cos(f.GetAng()) / rootThree + sin(f.GetAng()));
 	}
+	if (playerState == 1) SPE = 0.3; else SPE = 0;
 	if (UP > 1.0) UP = 1.0;
 	if (RD > 1.0) RD = 1.0;
 	if (LD > 1.0) LD = 1.0;

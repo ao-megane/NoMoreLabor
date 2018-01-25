@@ -4,7 +4,6 @@
 #include"Wave.h"
 #include"Chore.h"
 
-
 int normal_image;
 
 void Wave::Initialize() {
@@ -57,7 +56,6 @@ bool Wave::IsJump(Dot center) {
 	decoi2.SetY(decoi2.GetY() + WAVE_BAND / 2.0);
 
 	if (decoi1.GetX()*decoi2.GetX() < 0 && decoi2.GetY()*decoi1.GetY() < 0) {//ŽlŠp‚Ì’†‚ÉŒ´“_‚ª‚ ‚é‚©
-		
 		return true;
 	}
 	else {

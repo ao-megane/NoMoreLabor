@@ -134,6 +134,7 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Splash.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Output.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpidarMouse.h" />
+    <ClInclude Include="Splash.h" />
     <ClInclude Include="Value.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>

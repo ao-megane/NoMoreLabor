@@ -39,4 +39,8 @@ const int WAVE_INTERVAL = 20 * 60;//フレーム
 const int WAVE_SPEED = 2;//pixel / frame
 const int WAVE_BAND = 50;
 
+const int SPL_NUM = 15;
+const int SPL_INTERVAL = 0.5 * 60;//フレーム
+const int SPL_LIFETIME = 3 * 60;
+
 #endif // !VALUE_H
