@@ -111,7 +111,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			wave.Set(count);
 			wave.Updata(count);
 			player.Updata(input, wave.IsJump(player.GetCenter()),count);
-			SplashMngUpdata(count, player.GetCenter(), player.GetAng());
+			SplashMngUpdata(count, player.GetCenter(), player.GetAng(),player.GetState());
 			decoi = (input.GetMouse().Todouble() - center);
 			decoi.Updata();
 			motor.Calc(decoi,player.GetState());
@@ -126,7 +126,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			input.GetMouse().Todouble().Draw(RED);
 			wave.Draw();
-			//SplashMngDraw();
+			SplashMngDraw();
 			player.Draw();
 			//motor.Draw();
 			//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);

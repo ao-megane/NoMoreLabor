@@ -56,8 +56,8 @@ void Player::Updata(Input input,bool Jflag,int count) {
 	//else if (input.GetKey(KEY_INPUT_S)) velocity.Set(velocity.GetX()*0.7, velocity.GetY()*0.7);
 	else if (input.GetKey(KEY_INPUT_S) && velocity.Rotate(-ang).GetX() > 1) accelerator.SetX(BRAKE);
 	else accelerator.Set(0, 0);
-	if (input.GetKey(KEY_INPUT_A) && velocity.GetAbs() > 1) ang += ADDED_ANGLE;
-	if (input.GetKey(KEY_INPUT_D) && velocity.GetAbs() > 1) ang -= ADDED_ANGLE;
+	if (input.GetKey(KEY_INPUT_A) && velocity.GetAbs() != 0) ang += ADDED_ANGLE;
+	if (input.GetKey(KEY_INPUT_D) && velocity.GetAbs() != 0) ang -= ADDED_ANGLE;
 
 	while (ang >= PI * 2)
 		ang -= 2 * PI;

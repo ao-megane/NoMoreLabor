@@ -9,7 +9,7 @@ public:
 	Splash() {}
 	~Splash() {}
 	void Initialize();
-	void Set(int count,Dot center,int ang);
+	void Set(int count,Dot center,double ang);
 	int Updata(int count);
 	void Draw();
 	bool GetisExist();
@@ -20,10 +20,11 @@ private:
 	int bodyClock;
 	bool isExist;
 	double enlarge;
+	double alpha;
 };
 
 void SplashMngInitialize();
-void SplashMngUpdata(int count,Dot p_center,int p_ang);
+void SplashMngUpdata(int count,Dot p_center,double p_ang,int p_state);
 void SplashMngDraw();
 void SplashMngEnd();
 
