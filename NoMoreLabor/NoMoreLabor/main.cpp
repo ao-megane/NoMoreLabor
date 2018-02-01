@@ -194,7 +194,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		count++;
 	}
-	
+	motor.End();
 	InitSoftImage();
 	DxLib_End();	// DXƒ‰ƒCƒuƒ‰ƒŠI—¹ˆ—
 	return 0;

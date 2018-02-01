@@ -13,6 +13,7 @@ public:
 	void SetSPE(float a);
 	void Calc(Dot F,int playerState);
 	void Draw();
+	void End();
 
 private:
 	float UP;

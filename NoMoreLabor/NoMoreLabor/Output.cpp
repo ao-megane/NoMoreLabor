@@ -17,6 +17,7 @@ void Motors::Initialize() {
 	RD = 0.0;
 	LD = 0.0;
 	SPE = 0.0;
+	SetMinForceDuty(0.0);
 }
 
 void Motors::Set(float a, float b, float c) {
@@ -63,7 +64,9 @@ void Motors::Calc(Dot f,int playerState) {//fは位置ベクトル
 const int r = 200;
 const double R = 200.0;
 void Motors::Draw() {
-	SetDutyOnCh(UP, RD, LD, SPE, 1000.0/GetFPS());
+	/*SetDutyOnCh(UP, RD, LD, SPE, 1000.0/GetFPS());*/
+	SetDutyOnCh(UP, RD, LD, SPE, 22);
+	//SetDutyOnCh(1 - UP, 1 - RD, 1 - LD, 1 - SPE, 22);
 
 	DrawCircle(DISP_WIDTH / 2.0					   , DISP_HEIGHT / 2.0 - r		, UP * R, RED, true);
 	DrawCircle(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, RD * R, RED, true);
@@ -73,9 +76,17 @@ void Motors::Draw() {
 	DrawFormatString(0, 320, GREEN, "RD : %f", RD);
 	DrawFormatString(0, 340, GREEN, "LD : %f", LD);
 	DrawFormatString(0, 360, GREEN, "SPE: %f", SPE);
+	/*DrawFormatString(0, 300, GREEN, "UP : %f", 1-UP);
+	DrawFormatString(0, 320, GREEN, "RD : %f", 1-RD);
+	DrawFormatString(0, 340, GREEN, "LD : %f", 1-LD);
+	DrawFormatString(0, 360, GREEN, "SPE: %f", 1-SPE);*/
 	DrawFormatString(0, 380, GREEN, "DUR: %f", 1000.0 / GetFPS());
 
 	DrawLine(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0 - r, DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, GREEN);
 	DrawLine(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, GREEN);
 	DrawLine(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0 - r, DISP_WIDTH / 2.0 - r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, GREEN);
+}
+
+void Motors::End() {
+	CloseSpidarMouse();
 }
