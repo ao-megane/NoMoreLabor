@@ -5,8 +5,7 @@
 
 void Input::MouseUpdata() {
 	GetMousePoint(m.GetXad(), m.GetYad());
-	if (GetMouseInput() & MOUSE_INPUT_RIGHT) click++;
-	else click = 0;
+	if (GetMouseInput() & MOUSE_INPUT_LEFT) click++;else click = 0;
 }
 
 // キーの入力状態更新

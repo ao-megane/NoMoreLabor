@@ -7,31 +7,18 @@ class Motors
 public:
 	Motors(){}
 	~Motors() {}
+	//void Set(float a, float b, float c, float d);
+	void Initialize();
+	void Set(float u, float r, float l);
+	void SetSPE(float a);
+	void Calc(Dot F,int playerState);
+	void Draw();
+
+private:
 	float UP;
 	float RD;
 	float LD;
 	float SPE;
-	void Set(float a, float b, float c, float d);
-	void Set(float a, float b, float c);
-	void Calc(Dot F);
-	void Draw();
-
-private:
-
 };
-
-//Motors::Motors(){
-//	UP = 0.0;
-//	RD = 0.0;
-//	LD = 0.0;
-//	SPE = 0.0;
-//}
-//
-//Motors::~Motors(){
-//	UP = 0.0;
-//	RD = 0.0;
-//	LD = 0.0;
-//	SPE = 0.0;
-//}
 
 #endif // !OUTPUT_H

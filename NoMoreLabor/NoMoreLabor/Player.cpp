@@ -14,20 +14,50 @@ void Player::Initialize() {
 	ang = 0;
 	NormalImage = LoadGraph("images/player/normal.png");
 	image = NormalImage;
+	enlarge = 1;
+	state = 0;
+}
+
+void Player::SetJump(int count) {
+	state = 1;
+	bodyClock = count;
+}
+void Player::UpdataJump(int count) {
+	enlarge = 1.0 + sin(PI / JUMPING_TIME * (count - bodyClock));
+	center = center + velocity;
+	if (center.GetX() > DISP_WIDTH) center.SetX(0);
+	if (center.GetX() < 0) center.SetX(DISP_WIDTH);
+	if (center.GetY() > DISP_HEIGHT) center.SetY(0);
+	if (center.GetY() < 0) center.SetY(DISP_HEIGHT);
+	if ((count - bodyClock) >= JUMPING_TIME) {
+		enlarge = 1.0;
+		state = 0;
+	}
 }
 
 Dot decoi;
-void Player::Updata(Input input,int Jflag) {
+void Player::Updata(Input input,bool Jflag,int count) {
+
+	/*ジャンプ処理*/
+	if (Jflag && GetState() == 0) {
+		//printfDx("JUMP!!!");
+		SetJump(count);
+	}
+	if (GetState() == 1) {
+		UpdataJump(count);
+		return;
+	}
+	/*ここまで*/
+
 	force.Set(0, 0);//force初期化
 
-
 	//プレイヤー上向き時の処理（後で回す）
-	if (input.GetKey(KEY_INPUT_W)) accelerator.SetX(1);
+	if (input.GetKey(KEY_INPUT_W)) accelerator.SetX(ACCELE);
 	//else if (input.GetKey(KEY_INPUT_S)) velocity.Set(velocity.GetX()*0.7, velocity.GetY()*0.7);
-	else if (input.GetKey(KEY_INPUT_S) && velocity.Rotate(-ang).GetX() > 1) accelerator.SetX(-0.5);
+	else if (input.GetKey(KEY_INPUT_S) && velocity.Rotate(-ang).GetX() > 1) accelerator.SetX(BRAKE);
 	else accelerator.Set(0, 0);
-	if (input.GetKey(KEY_INPUT_A)) ang += PI / 24.0;
-	if (input.GetKey(KEY_INPUT_D)) ang -= PI / 24.0;
+	if (input.GetKey(KEY_INPUT_A) && velocity.GetAbs() != 0) ang += ADDED_ANGLE;
+	if (input.GetKey(KEY_INPUT_D) && velocity.GetAbs() != 0) ang -= ADDED_ANGLE;
 
 	while (ang >= PI * 2)
 		ang -= 2 * PI;
@@ -35,40 +65,36 @@ void Player::Updata(Input input,int Jflag) {
 		ang += 2 * PI;
 
 	accelerator.Updata();
-	if(velocity.GetAbs() < 50)
-		velocity = velocity + accelerator.Rotate(ang) * 1; //絶対速度
-
+	if(velocity.GetAbs() < LIMIT)//制限速度
+		velocity = velocity + accelerator.Rotate(ang); //絶対速度
+	//													↑加速の具合
 	
-	velocity.Set(velocity.Rotate(-ang).GetX() * 0.999, velocity.Rotate(-ang).GetY() * 0.9);//相対速度
+	velocity.Set(velocity.Rotate(-ang).GetX() * DECAY_STRAIGHT, velocity.Rotate(-ang).GetY() *DECAY_SIDE);//相対速度
+	//											↑縦方向の減衰						　↑横方向の減衰
 
 	velocity = velocity.Rotate(ang);//絶対速度
 
-	//velocity.Set(velocity.GetX() * 0.9, velocity.GetY() * 0.9);
-	//velocity.Set(velocity.GetX(),velocity.GetY());
 	velocity.Updata();
 	center = center + velocity;
 
-	if (velocity.GetAbs() != 0 /*&& accelerator.GetAbs() != 0*/) {
-		//printfDx("%6.3f : %f\n", velocity.GetAbs(), 0.5 * weight * velocity.Rotate(-ang).GetX() * velocity.Rotate(-ang).GetX() / velocity.GetAbs() * 1);
+	if (velocity.GetAbs() != 0) {
 		force.SetX(-0.5 * weight * velocity.Rotate(-ang + PI / 2).GetX() * velocity.Rotate(-ang + PI / 2).GetX() / velocity.GetAbs() * 0.5);// 力 = (1/2mv^2)/変位
 		force.SetY(0.5 * weight * velocity.Rotate(-ang + PI / 2).GetY() * velocity.Rotate(-ang + PI / 2).GetY() / velocity.GetAbs() * 0.5);// 力 = (1/2mv^2)/変位
 		if (velocity.Rotate(-ang + PI / 2).GetX() < 0) force.SetX(-force.GetX());
 		if (velocity.Rotate(-ang + PI / 2).GetY() < 0) force.SetY(-force.GetY());
 	}
-	/*force.SetX(velocity.Rotate(-ang + PI/2).GetX() * 0.001 * 100);
-	force.SetY(velocity.Rotate(-ang + PI/2).GetY() * 0.1   * 100);*/
 
 	if (input.GetKey(KEY_INPUT_C)) {
 		center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
 		velocity.Set(0, 0);
-	}
+	}//位置初期化
 	if (center.GetX() > DISP_WIDTH) center.SetX(0);
 	if (center.GetX() < 0) center.SetX(DISP_WIDTH);
 	if (center.GetY() > DISP_HEIGHT) center.SetY(0);
 	if (center.GetY() < 0) center.SetY(DISP_HEIGHT);
+	//ループ処理
 
 	force = force + accelerator.Rotate(PI / 2) * weight;
-	//precenter = center;
 }
 
 Dot a;
@@ -77,13 +103,13 @@ Dot c;
 Dot d;
 void Player::Draw() {
 	decoi.Set(- P_WIDTH / 2, - P_HEIGHT / 2);
-	a = decoi.Rotate(ang) + center;
+	a = decoi.Rotate(ang) * enlarge + center;
 	decoi.Set(+ P_WIDTH / 2, - P_HEIGHT / 2);
-	b = decoi.Rotate(ang) + center;
+	b = decoi.Rotate(ang) * enlarge + center;
 	decoi.Set(+ P_WIDTH / 2, + P_HEIGHT / 2);
-	c = decoi.Rotate(ang) + center;
+	c = decoi.Rotate(ang) * enlarge + center;
 	decoi.Set(- P_WIDTH / 2, + P_HEIGHT / 2);
-	d = decoi.Rotate(ang) + center;
+	d = decoi.Rotate(ang) * enlarge + center;
 	DrawModiGraph(
 		a.GetX(), a.GetY(),
 		b.GetX(), b.GetY(), 
@@ -97,6 +123,9 @@ void Player::End() {
 	;
 }
 
+Dot Player::GetCenter() {
+	return center;
+}
 Dot Player::GetVelocity() {
 	return velocity;
 }
@@ -111,6 +140,9 @@ double Player::GetAng() {
 }
 int Player::GetWeight() {
 	return weight;
+}
+int Player::GetState() {
+	return state;
 }
 
 
