@@ -12,6 +12,7 @@ public:
 	void Set(float u, float r, float l);
 	void SetSPE(float a);
 	void Calc(Dot F,int playerState);
+	void Updata();
 	void Draw();
 	void End();
 

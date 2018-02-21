@@ -54,7 +54,7 @@ void Motors::Calc(Dot f,int playerState) {//fは位置ベクトル
 		RD = decoi * (2.0 / rootThree * f.GetAbs() * cos(f.GetAng()) + -f.GetAbs()*(cos(f.GetAng()) / rootThree + sin(f.GetAng())));
 		LD = decoi * -f.GetAbs()*(cos(f.GetAng()) / rootThree + sin(f.GetAng()));
 	}
-	if (playerState == 1) SPE = 0.3; else SPE = 0;
+	if (playerState == 1) SPE = 0.7; else SPE = 0;
 	if (UP > 1.0) UP = 1.0;
 	if (RD > 1.0) RD = 1.0;
 	if (LD > 1.0) LD = 1.0;
@@ -63,10 +63,11 @@ void Motors::Calc(Dot f,int playerState) {//fは位置ベクトル
 
 const int r = 200;
 const double R = 200.0;
+void Motors::Updata() {
+	SetDutyOnCh(UP, RD, LD, SPE, 1000.0 / GetFPS());
+	//SetDutyOnCh(UP, RD, LD, SPE, 22);
+}
 void Motors::Draw() {
-	/*SetDutyOnCh(UP, RD, LD, SPE, 1000.0/GetFPS());*/
-	SetDutyOnCh(UP, RD, LD, SPE, 22);
-	//SetDutyOnCh(1 - UP, 1 - RD, 1 - LD, 1 - SPE, 22);
 
 	DrawCircle(DISP_WIDTH / 2.0					   , DISP_HEIGHT / 2.0 - r		, UP * R, RED, true);
 	DrawCircle(DISP_WIDTH / 2.0 + r*rootThree / 2.0, DISP_HEIGHT / 2.0 + r / 2.0, RD * R, RED, true);

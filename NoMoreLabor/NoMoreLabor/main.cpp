@@ -77,6 +77,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		input.Updata();
+		motor.Updata();
 
 		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
 		case 0://タイトル
@@ -168,7 +169,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				decoi.Updata();
 				motor.Calc(decoi,0);
 				DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
-				if (input.GetClick() > 0) motor.SetSPE(0.3);
+				if (input.GetClick() > 0) motor.SetSPE(0.7);
 				break;
 			default:
 				break;
