@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int sceFlag = 0;	//シミュレータの流れを管理する変数
 
 	/*-------------フォント設定-------------------*/
-	int tanuki;			//フォント設定
+	int tanuki;	
 	if (AddFontResourceEx("font/TanukiMagic.ttf", FR_PRIVATE, NULL) == 0) {
 		//printfDx("AddFontResource");
 	}
@@ -81,7 +81,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
 		case 0://タイトル
-			//計算
+		{//計算
 			if (input.GetKey(KEY_INPUT_S) == 1) {
 				stageFlag = (stageFlag + 1) % 3;
 			}
@@ -101,21 +101,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				back.Set(0);
 				count = 0;
 				sceFlag = stageFlag + 1;
-				if(sceFlag == 1) SetMousePoint(M_X, M_Y);
+				if (sceFlag == 1) SetMousePoint(M_X, M_Y);
 			}
 
 			for (int i = 0; i < 3; i++) {
 				DrawStringToHandle(MenuElement[i].x, MenuElement[i].y, MenuElement[i].name, GetColor(225, 225, 225), tanuki);
 			}
-			break;
+			break; 
+		}
 		case 1://水上バイク
+		{
 			wave.Set(count);
 			wave.Updata(count);
-			player.Updata(input, wave.IsJump(player.GetCenter()),count);
-			SplashMngUpdata(count, player.GetCenter(), player.GetAng(),player.GetState());
+			player.Updata(input, wave.IsJump(player.GetCenter()), count);
+			SplashMngUpdata(count, player.GetCenter(), player.GetAng(), player.GetState());
 			decoi = (input.GetMouse().Todouble() - center);
 			decoi.Updata();
-			motor.Calc(decoi,player.GetState());
+			motor.Calc(decoi, player.GetState());
 			back.Draw();
 			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE)) {
 				DrawFormatString(0, 50, RED, "OUT!");
@@ -136,10 +138,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
 			DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
 
-			break;
+			break; 
+		}
 		case 2://ハードテスト
-			
-			//input.Updata();
+		{
 			if (input.GetKey(KEY_INPUT_W) == 1) flag = 0;
 			if (input.GetKey(KEY_INPUT_A) == 1) flag = 1;
 			if (input.GetKey(KEY_INPUT_D) == 1) flag = 2;
@@ -167,7 +169,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			case 3:
 				decoi = (input.GetMouse().Todouble() - center);
 				decoi.Updata();
-				motor.Calc(decoi,0);
+				motor.Calc(decoi, 0);
 				DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
 				if (input.GetClick() > 0) motor.SetSPE(0.7);
 				break;
@@ -176,8 +178,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			motor.Draw();
 			break;
+		}
 		case 3://クレジット
+		{
 			break;
+		}
 		case 4://終了
 			break;
 		default:
