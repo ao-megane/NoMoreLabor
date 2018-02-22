@@ -23,41 +23,53 @@ TODO
 */
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-
-	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);
+	/*-------------DxLib設定----------------------------------------*/
+	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);	//画素数、使用する色の数の設定
 	{
-		SetWindowSizeExtendRate(0.7);
-		ChangeWindowMode(true);
+		/*-------------ウィンドウモード設定-------------------*/
+		SetWindowSizeExtendRate(0.7);	//上で設定したサイズの0.7倍で表示
+		ChangeWindowMode(true);			//ウィンドウモードに変更（デフォルトはフルスクリーンモード）
 	}
-	SetDrawScreen(DX_SCREEN_BACK);
+	SetDrawScreen(DX_SCREEN_BACK);	//裏画面処理の設定
 	DxLib_Init();	// DXライブラリ初期化処理
+	/*-------------DxLib設定了--------------------------------------*/
 
-	Input input;
-	Dot center;
-	Dot decoi;
-	Player player;
-	Motors motor;
-	intDot mdot;
-	Back back;
-	Wave wave;
-	mdot.Set(M_X, M_Y);
-	int Jflag;
-	int count = 0;
-	int flag = 0;
-	float yunkawa = 0;
-	MenuElement_t MenuElement[3] = {
+	/*-------------各種変数設定-------------------------------------------*/
+	Input input;	//入力処理
+	Dot center;		//描画の中心座標
+	center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);	//centerをピクセル単位で画面の中心へセット
+	Dot decoi;		//各計算の途中の値を持つやつ
+	Player player;	//プレイヤー処理
+	Motors motor;	//出力（モーター）処理
+	//デバック用
+		intDot mdot;	//マウス処理
+		mdot.Set(M_X, M_Y);	//マウスを既定の位置へセット
+	
+	Back back;		//背景処理
+	Wave wave;		//波処理
+	
+	int Jflag = 0;		//プレイヤーのジャンプフラグ
+	int count = 0;	//スタートからの経過フレームのカウンタ
+	int flag = 0;	//
+	float yunkawa = 0;	//ハードテスト用パラメータ（0～1.0）
+	int sceFlag = 0;	//現在のソフトの状態（OP,PLAYING,ENDING）のフラグ
+	int stageFlag = 0;	//OPで使う、現在選択中のステージ（モード）
+	
+	MenuElement_t MenuElement[3] = {	//最初の画面の表示文字
 		{ 100, 300, "水上バイクシミュレータ" },
 		{ 200,500,"ハードテスト" },
 		{ 200,700,"終了" },
 	};
-	center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
-	
 
-	int stageFlag = 0;	//現在の選択番号（モード）
-	int sceFlag = 0;	//シミュレータの流れを管理する変数
+	/*-------------各種クラスの初期化処理-------------------*/
+	motor.Initialize();
+	player.Initialize();
+	back.Initialize();
+	wave.Initialize();
+	SplashMngInitialize();
 
-	/*-------------フォント設定-------------------*/
-	int tanuki;	
+	/*-------------フォントの追加-------------------*/
+	int tanuki;
 	if (AddFontResourceEx("font/TanukiMagic.ttf", FR_PRIVATE, NULL) == 0) {
 		//printfDx("AddFontResource");
 	}
@@ -65,27 +77,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	if (tanuki == -1) {
 		//printfDx("CreateFontToHandle");
 	}
-	/*----------------ここまで---------------------*/
 
-	motor.Initialize();
-	player.Initialize();
-	back.Initialize();
-	wave.Initialize();
-	SplashMngInitialize();
+	/*-------------各種変数設定了-------------------------------------------*/
 
-	Jflag = 0;
-
-	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
-		input.Updata();
-		motor.Updata();
+	/*-------------ループ処理------------------------------------------------------------------------------*/
+	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {//表示系やDxLibにエラーがなければ続行
+		input.Updata();//入力の更新
+		motor.Updata();//モーターの更新
 
 		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
 		case 0://タイトル
-		{//計算
-			if (input.GetKey(KEY_INPUT_S) == 1) {
+		{
+			//計算
+			if (input.GetKey(KEY_INPUT_S) == 1 || input.GetKey(KEY_INPUT_DOWN) == 1) {	//上が押されたら選択を上へ
 				stageFlag = (stageFlag + 1) % 3;
 			}
-			if (input.GetKey(KEY_INPUT_W) == 1) {
+			if (input.GetKey(KEY_INPUT_W) == 1 || input.GetKey(KEY_INPUT_UP) == 1) {	//下が押されたら選択を下へ
 				stageFlag = (stageFlag + 2) % 3;
 			}
 			for (int i = 0; i < 3; i++) {
@@ -97,27 +104,31 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			if (input.GetClick() == 1 || input.GetKey(KEY_INPUT_RETURN)) {
-				back.Set(0);
-				count = 0;
-				sceFlag = stageFlag + 1;
-				if (sceFlag == 1) SetMousePoint(M_X, M_Y);
+			if (input.GetClick() == 1 || input.GetKey(KEY_INPUT_RETURN)) {	//クリックかエンターで選択に応じた次の処理へ
+				back.Set(0);//背景の設定（モードにより異なる）
+				count = 0;	//カウンタを初期化
+				sceFlag = stageFlag + 1;	//OPの選択表示フラグをシステムの流れフラグへ反映
+				if (sceFlag == 1) SetMousePoint(M_X, M_Y);	//マウス位置の初期化
 			}
 
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < 3; i++) {	//選択の描画
 				DrawStringToHandle(MenuElement[i].x, MenuElement[i].y, MenuElement[i].name, GetColor(225, 225, 225), tanuki);
 			}
 			break; 
 		}
 		case 1://水上バイク
 		{
-			wave.Set(count);
-			wave.Updata(count);
-			player.Updata(input, wave.IsJump(player.GetCenter()), count);
-			SplashMngUpdata(count, player.GetCenter(), player.GetAng(), player.GetState());
-			decoi = (input.GetMouse().Todouble() - center);
-			decoi.Updata();
-			motor.Calc(decoi, player.GetState());
+			/*-------------各クラスの更新-------------------*/
+			wave.Set(count);	//カウンタに応じて波をセット
+			wave.Updata(count);	//カウンタに応じて波を更新
+			player.Updata(input, wave.IsJump(player.GetCenter()), count);	//入力、波等をもとにプレイヤーの更新
+			SplashMngUpdata(count, player.GetCenter(), player.GetAng(), player.GetState());	//飛沫の更新（プレイヤーの影のような役割）
+			//decoi = (input.GetMouse().Todouble() - center);	
+			//decoi.Updata();
+			//motor.Calc(decoi, player.GetState());	//
+			//????
+
+			/*-------------描画-------------------*/
 			back.Draw();
 			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE)) {
 				DrawFormatString(0, 50, RED, "OUT!");
@@ -125,8 +136,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (!back.Updata(count, player.GetCenter())) {
 				DrawFormatString(0, 100, BLUE, "OUT!");
 			}
-
-
 			input.GetMouse().Todouble().Draw(RED);
 			wave.Draw();
 			SplashMngDraw();
@@ -189,8 +198,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		}
 
-		FpsTimeFanction();
-		if (input.GetKey(KEY_INPUT_DELETE) == 1) {
+		FpsTimeFanction();	//現在のFPSの表示
+		if (input.GetKey(KEY_INPUT_DELETE) == 1) {//デリートが押されたら一つ前の画面へ、OP画面ならソフトを終了する
 			if (sceFlag == 0) {
 				break;
 			}
@@ -198,10 +207,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				sceFlag = 0;
 			}
 		}
-		count++;
+		count++;	//カウンタの更新
 	}
+	/*-------------ループ処理ここまで----------------------------------------------------------------------*/
+
+	/*-------------終了処理-------------*/
 	motor.End();
 	InitSoftImage();
 	DxLib_End();	// DXライブラリ終了処理
+	/*-------------終了処理ここまで-----*/
 	return 0;
 }

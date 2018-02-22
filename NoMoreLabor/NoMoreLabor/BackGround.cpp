@@ -1,12 +1,14 @@
 #include"BackGround.h"
 #include"Chore.h"
 
+/*-------------各画像格納用変数-------------------*/
 int bgHandle1;
 int mapHandle1;
 int softmapHandle1;
-int mapHandle2;
+//int mapHandle2;
 
 void Back::Initialize() {
+	/*-------------各画像の格納-------------------*/
 	bgHandle1 = LoadGraph("images/map/BackGround.png");
 	mapHandle1 = LoadGraph("images/map/map1.png");
 	softmapHandle1 = LoadSoftImage("images/map/map1.png");
@@ -16,7 +18,7 @@ void Back::Initialize() {
 void Back::Set(int stage) {
 	switch (stage)
 	{
-	case 0:
+	case 0://ステージ１（）に応じた画像を格納
 		bgHandle = bgHandle1;
 		mapHandle = mapHandle1;
 		softmapHandle = softmapHandle1;
@@ -34,8 +36,8 @@ void Back::Set(int stage) {
 }
 
 int Back::Updata(int count,Dot dot) {
-	if (IsBlack(softmapHandle, dot)) {
-		return 1;
+	if (IsBlack(softmapHandle, dot)) {//もしソフトマップハンドルに渡した画像のdot(座標)位置の点が黒ければ
+		return 1;	//trueを返す
 	}
 	else {
 		return 0;
