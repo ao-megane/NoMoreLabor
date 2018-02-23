@@ -26,8 +26,8 @@ void Splash::Set(int count, Dot p_center, double p_ang) {
 }
 
 int Splash::Updata(int count) {
-	enlarge = 1.0 + sin(PI / 2.0 / SPL_LIFETIME * (count - bodyClock));//ここ怪しい
-	alpha = (count - bodyClock) / SPL_LIFETIME;//0~1なはず
+	enlarge = 1.0 + sin(PI / 2.0 / SPL_LIFETIME * (count - bodyClock));
+	alpha = (count - bodyClock) / SPL_LIFETIME;
 
 	if ((count - bodyClock) >= SPL_LIFETIME) {
 		bodyClock = 0;
@@ -49,11 +49,10 @@ Dot c2;
 Dot d2;
 Dot otori;
 void Splash::Draw() {
-	if (!isExist) return;
+	if (!isExist) return;	//存在しなければ描画しない
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255.0*(1.0-alpha));		//ブレンドモードをα(128/255)に設定
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255.0*(1.0-alpha));	//ブレンドモードを設定
 	
-	//DrawFormatString(100, 100, GREEN, "alpha:%f", alpha);
 	otori.Set(-P_WIDTH / 2, -P_HEIGHT / 2);
 	a2 = otori.Rotate(ang) * enlarge + center;
 	otori.Set(+P_WIDTH / 2, -P_HEIGHT / 2);
@@ -62,7 +61,7 @@ void Splash::Draw() {
 	c2 = otori.Rotate(ang) * enlarge + center;
 	otori.Set(-P_WIDTH / 2, +P_HEIGHT / 2);
 	d2 = otori.Rotate(ang) * enlarge + center;
-	DrawModiGraph(
+	DrawModiGraph(	//プレイヤーと同じような処理
 		a2.GetX(), a2.GetY(),
 		b2.GetX(), b2.GetY(),
 		c2.GetX(), c2.GetY(),
@@ -70,14 +69,7 @@ void Splash::Draw() {
 		image, true
 		);
 
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	/*DrawLineByDot(a2, b2, RED);
-	DrawLineByDot(b2, c2, RED);
-	DrawLineByDot(c2, d2, RED);
-	DrawLineByDot(d2, a2, RED);*/
-	//DrawModiGraph(0, 0, 300, 0, 300, 300, 0, 300, image, false);
-	//printfDx("DRAW");
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	//ブレンドモードを初期化
 }
 
 Splash splashes[SPL_NUM];
@@ -89,7 +81,7 @@ void SplashMngInitialize() {
 }
 
 void SplashMngUpdata(int count, Dot p_center,double p_ang,int p_state) {
-	if (p_state != 1) {//jump中は飛沫上げない
+	if (p_state != 1) {	//jump中は飛沫を上げない
 		if (count % SPL_INTERVAL == 0) {
 			for (int i = 0; i < SPL_NUM; i++) {
 				if (!splashes[i].GetisExist()) {
@@ -104,9 +96,9 @@ void SplashMngUpdata(int count, Dot p_center,double p_ang,int p_state) {
 		if (splashes[i].GetisExist())splashes[i].Updata(count);
 	}
 }
+
 void SplashMngDraw() {
 	for (int i = 0; i < SPL_NUM; i++) {
 		splashes[i].Draw();
 	}
-	//DrawModiGraph(0, 0, 300, 0, 300, 300, 0, 300, image, false);
 }
