@@ -66,8 +66,17 @@ void Motors::Calc(Dot f,int playerState) {//fは力の位置ベクトル
 
 const int r = 200;
 const double R = 200.0;
-void Motors::Updata() {
+void Motors::Updata(bool flag) {
 	SetDutyOnCh(UP, RD, LD, SPE, 1000.0 / GetFPS());	//フレーム間で出力が終わるように間隔を設定（PWMの回避）
+
+	if (flag) {
+		SetDutyOnCh(UP, RD, LD, SPE, 1000.0 / GetFPS());
+		DrawFormatString(0, 280, GREEN, "SetDutyOnCh(UP, RD, LD, SPE, 1000.0 / GetFPS());");
+	}
+	else {
+		SetDutyOnCh(RD, LD, SPE, UP, 1000.0 / GetFPS());
+		DrawFormatString(0, 280, GREEN, "SetDutyOnCh(RD, LD, SPE, UP, 1000.0 / GetFPS());");
+	}
 
 	//デバック用表示
 	DrawFormatString(0, 300, GREEN, "UP : %f", UP);

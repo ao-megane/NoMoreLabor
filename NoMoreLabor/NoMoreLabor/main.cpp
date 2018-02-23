@@ -44,6 +44,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//デバック用
 		intDot mdot;	//マウス処理
 		mdot.Set(M_X, M_Y);	//マウスを既定の位置へセット
+		bool setFlag = true;
 	
 	Back back;		//背景処理
 	Wave wave;		//波処理
@@ -83,7 +84,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*-------------ループ処理------------------------------------------------------------------------------*/
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {//表示系やDxLibにエラーがなければ続行
 		input.Updata();//入力の更新
-		motor.Updata();//モーターの更新
+		motor.Updata(setFlag);//モーターの更新
+		if (input.GetKey(KEY_INPUT_P) == 1) setFlag = !setFlag;
 
 		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
 		case 0://タイトル
