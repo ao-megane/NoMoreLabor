@@ -8,6 +8,7 @@ const int RED = GetColor(255, 0, 0);		//赤の色コード
 const int GREEN = GetColor(0, 255, 0);		//緑の色コード
 const int BLUE = GetColor(0, 0, 255);		//青の色コード
 const int WHITE = GetColor(255, 255, 255);	//白の色コード
+const int BLACK = GetColor(0, 0, 0);		//黒の色コード
 
 const int DISP_WIDTH = 1280;	//ディスプレイの画素（横）
 const int DISP_HEIGHT = 800;	//ディスプレイの画素（縦）
@@ -15,6 +16,8 @@ const int DISP_HEIGHT = 800;	//ディスプレイの画素（縦）
 const double PI = 3.14159265358979;		//円周率
 const double rootTwo = 1.4142135624;	//ルート2
 const double rootThree = 1.7320508;		//ルート3
+
+const int SENTENCE_WIDTH = 550;
 
 const double F_ABS_MAX = DISP_WIDTH;	//力の最大値（モーターの感度）
 

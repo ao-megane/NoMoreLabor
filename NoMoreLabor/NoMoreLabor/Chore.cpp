@@ -19,6 +19,22 @@ bool IsBlack(int imageHandle, Dot dot) {
 	//return true;
 }
 
+void DrawCredit(int font) {
+	DrawBox(0, 0, DISP_WIDTH, DISP_HEIGHT, BLUE, true);
+	DrawStringToHandle(450, 100, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 200, "4L22 田村　崚", BLACK, font);
+	DrawStringToHandle(450, 250, "プログラミング", BLACK, font);
+	DrawStringToHandle(450, 300, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 350, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 400, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 450, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 500, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 550, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 600, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 650, "CREDIT", BLACK, font);
+	DrawStringToHandle(450, 700, "CREDIT", BLACK, font);
+}
+
 int FpsTime[2] = { 0, }, FpsTime_i = 0;
 double Fps = 0.0;
 void FpsTimeFanction() {
