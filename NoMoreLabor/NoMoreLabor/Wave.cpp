@@ -12,21 +12,25 @@ void Wave::Initialize() {
 }
 
 void Wave::Set(int count) {
-	if (count % WAVE_INTERVAL != 3)
+	if (count % WAVE_INTERVAL != 3)	//WAVE_INTERVALごとに生成
 		return;
-	SRand(GetNowCount());
+
+	Point1.Set(0, 0);
+
+	SRand(GetNowCount());	//縦に進むか横に進むかをランダムに決定
 	if (GetRand(1)) {
 		dir_x = true;
 	}
 	else {
 		dir_x = false;
 	}
-	Point1.Set(0, 0);
-	if (dir_x)
+	
+	if (dir_x)	//Point2の設定
 		Point2.Set(-GetRand(WAVE_SPEED * WAVE_INTERVAL*0.8), DISP_HEIGHT);
 	else
 		Point2.Set(DISP_WIDTH, -GetRand(WAVE_SPEED * WAVE_INTERVAL*0.8));
-	if (Point2.GetX() == 0) ang = 0;
+
+	if (Point2.GetX() == 0) ang = 0;	//波の角度を算出
 	else ang = -atan2(Point2.GetY(), Point2.GetX());
 	while (ang >= PI * 2)
 		ang -= 2 * PI;
@@ -34,7 +38,7 @@ void Wave::Set(int count) {
 		ang += 2 * PI;
 }
 
-int Wave::Updata(int count) {
+int Wave::Updata(int count) {	//波の更新（進める）
 	if (dir_x) {
 		Point1.SetX(Point1.GetX() + WAVE_SPEED);
 		Point2.SetX(Point2.GetX() + WAVE_SPEED);
@@ -47,6 +51,8 @@ int Wave::Updata(int count) {
 }
 
 bool Wave::IsJump(Dot center) {
+	//点と四角のあたり判定
+	//四角をcenter分平行移動し、第2象限、第4象限にかかっているか判別
 	Dot decoi1, decoi2;
 	decoi1 = Point1 - center;
 	decoi2 = Point2 - center;
@@ -55,7 +61,7 @@ bool Wave::IsJump(Dot center) {
 	decoi1.SetY(decoi1.GetY() - WAVE_BAND / 2.0);
 	decoi2.SetY(decoi2.GetY() + WAVE_BAND / 2.0);
 
-	if (decoi1.GetX()*decoi2.GetX() < 0 && decoi2.GetY()*decoi1.GetY() < 0) {//四角の中に原点があるか
+	if (decoi1.GetX()*decoi2.GetX() < 0 && decoi2.GetY()*decoi1.GetY() < 0) {	//四角の中に原点があるか
 		return true;
 	}
 	else {
@@ -84,11 +90,4 @@ void Wave::Draw() {
 		d1.GetX(), d1.GetY(),
 		image, true
 		);
-	/*DrawLineByDot(a1, b1, RED);
-	DrawLineByDot(b1, c1, RED);
-	DrawLineByDot(c1, d1, RED);
-	DrawLineByDot(d1, a1, RED);*/
-	/*DrawModiGraph(
-		0, 0, 300, 0, 300, 300, 0, 300, image, false);
-	DrawLineByDot(Point1, Point2, RED);*/
 }

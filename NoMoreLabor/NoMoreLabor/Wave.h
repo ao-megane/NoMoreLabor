@@ -17,11 +17,11 @@ public:
 	bool IsJump(Dot center);//center‚ª”g‚Ì’†‚É‚¢‚ê‚Îtrue
 
 private:
-	Dot Point1;	//
-	Dot Point2;
-	bool dir_x;//”g‚Ìi‚Ş•ûŒü‚ªx²•ûŒü‚È‚çtrue
-	double ang;
-	int image;
+	Dot Point1;	//”g‚Ì¶ã‚Ì“_
+	Dot Point2;	//”g‚Ì¶ã‚Å‚È‚¢•û‚Ì“_
+	bool dir_x;	//”g‚Ìi‚Ş•ûŒü‚ªx²•ûŒü‚È‚çtrue
+	double ang;	//”g‚ÌŠp“x
+	int image;	//”g‚Ì‰æ‘œŠi”[ƒnƒ“ƒhƒ‹
 };
 
 #endif // !WAVE_H
