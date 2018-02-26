@@ -52,7 +52,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int count = 0;	//スタートからの経過フレームのカウンタ
 	int flag = 0;	//
 	bool isCourseOut = false;	//コースアウトであればtrueを返すフラグ
-	float yunkawa = 0;	//ハードテスト用パラメータ（0～1.0）
+	float power = 0;	//ハードテスト用パラメータ（0～1.0）
 	int sceFlag = 0;	//現在のソフトの状態（OP,PLAYING,ENDING）のフラグ
 	int stageFlag = 0;	//OPで使う、現在選択中のステージ（モード）
 	
@@ -91,7 +91,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {//表示系やDxLibにエラーがなければ続行
 		input.Updata();//入力の更新
 		motor.Updata(setFlag);//モーターの更新
-		back.Draw();
+		//back.Draw();
 		if (input.GetKey(KEY_INPUT_P) == 1) setFlag = !setFlag;
 
 		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
@@ -150,7 +150,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					return 0;
 				}
 			}
-
+			back.Draw();
 			DrawStringToHandle(100,150, "水上バイクシミュレータ", BLACK, bigTanuki);
 			DrawStringToHandle(450, 300, "1班　定時退社", BLACK, tanuki);
 			for (int i = 0; i < 5; i++) {	//選択の描画
@@ -227,23 +227,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (input.GetKey(KEY_INPUT_S) == 1) {
 				SetMousePoint(DISP_WIDTH / 2.0, DISP_HEIGHT / 2.0);
 				motor.Set(0, 0, 0);
-				yunkawa = 0;
+				power = 0;
 				flag = 3;
 			}
-			if (input.GetKey(KEY_INPUT_UP)) yunkawa += 0.01;
-			if (input.GetKey(KEY_INPUT_DOWN)) yunkawa -= 0.01;
-			if (yunkawa < 0) yunkawa = 0;
+			if (input.GetKey(KEY_INPUT_UP)) power += 0.01;
+			if (input.GetKey(KEY_INPUT_DOWN)) power -= 0.01;
+			if (power < 0) power = 0;
 
 			switch (flag)
 			{
 			case 0:
-				motor.Set(yunkawa, 0, 0);
+				motor.Set(power, 0, 0);
 				break;
 			case 1:
-				motor.Set(0, 0, yunkawa);
+				motor.Set(0, 0, power);
 				break;
 			case 2:
-				motor.Set(0, yunkawa, 0);
+				motor.Set(0, power, 0);
 				break;
 			case 3:
 				decoi = (input.GetMouse().Todouble() - center);
@@ -260,6 +260,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		case 4://クレジット
 		{
+			back.Draw();
 			DrawCredit(tanuki);
 			break;
 		}
