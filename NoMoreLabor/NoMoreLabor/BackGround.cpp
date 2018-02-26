@@ -11,28 +11,27 @@ void Back::Initialize() {
 	/*-------------Še‰æ‘œ‚ÌŠi”[-------------------*/
 	bgHandle1 = LoadGraph("images/map/BackGround.png");
 	mapHandle1 = LoadGraph("images/map/map1.png");
-	softmapHandle1 = LoadSoftImage("images/map/map1.png");
+	softmapHandle1 = LoadSoftImage("images/map/softmap1.png");
 
 }
 
 void Back::Set(int stage) {
 	switch (stage)
 	{
-	case 0://ƒXƒe[ƒW‚Pij‚É‰‚¶‚½‰æ‘œ‚ğŠi”[
+	case 0:
+		bgHandle = bgHandle1;
+		mapHandle = 0;
+		break;
+	case 1://ƒXƒe[ƒW‚Pij‚É‰‚¶‚½‰æ‘œ‚ğŠi”[
 		bgHandle = bgHandle1;
 		mapHandle = mapHandle1;
 		softmapHandle = softmapHandle1;
-		break;
-	case 1:
 		break;
 	case 2:
 		break;
 	default:
 		break;
 	}
-	bgHandle = bgHandle1;
-	mapHandle = mapHandle1;
-	softmapHandle = softmapHandle1;
 }
 
 int Back::Updata(int count,Dot dot) {

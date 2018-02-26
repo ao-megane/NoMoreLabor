@@ -68,6 +68,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	motor.Initialize();
 	player.Initialize();
 	back.Initialize();
+	back.Set(0);
 	wave.Initialize();
 	SplashMngInitialize();
 
@@ -90,6 +91,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {//表示系やDxLibにエラーがなければ続行
 		input.Updata();//入力の更新
 		motor.Updata(setFlag);//モーターの更新
+		back.Draw();
 		if (input.GetKey(KEY_INPUT_P) == 1) setFlag = !setFlag;
 
 		switch (sceFlag) {//シミュレータの流れを管理するスイッチ
@@ -125,7 +127,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					back.Initialize();
 					wave.Initialize();
 					SplashMngInitialize();
-					back.Set(sceFlag - 1);		//背景の設定（モードにより異なる）
+					back.Set(sceFlag);		//背景の設定（モードにより異なる）
 					SetMousePoint(M_X, M_Y);	//マウス位置の初期化
 
 				}
@@ -136,7 +138,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					back.Initialize();
 					wave.Initialize();
 					SplashMngInitialize();
-					back.Set(sceFlag - 1);		//背景の設定（モードにより異なる）
+					back.Set(sceFlag);		//背景の設定（モードにより異なる）
 					SetMousePoint(M_X, M_Y);	//マウス位置の初期化
 				}
 				else if (sceFlag == 5) {
@@ -149,9 +151,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			DrawStringToHandle(100,150, "水上バイクシミュレータ", WHITE, bigTanuki);
+			DrawStringToHandle(100,150, "水上バイクシミュレータ", BLACK, bigTanuki);
+			DrawStringToHandle(450, 300, "1班　定時退社", BLACK, tanuki);
 			for (int i = 0; i < 5; i++) {	//選択の描画
-				DrawStringToHandle(MenuElement[i].x, MenuElement[i].y, MenuElement[i].name, WHITE, tanuki);
+				if(MenuElement[i].x == SENTENCE_WIDTH - 50)
+					DrawStringToHandle(MenuElement[i].x, MenuElement[i].y, MenuElement[i].name, ORANGE, tanuki);
+				else
+					DrawStringToHandle(MenuElement[i].x, MenuElement[i].y, MenuElement[i].name, BLACK, tanuki);
 			}
 			break; 
 		}
@@ -174,7 +180,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			wave.Draw();
 			SplashMngDraw();
 			player.Draw();
-			DrawCircle(M_X, M_Y, M_RANGE, SKYBLUE, true);
+			DrawCircle(M_X, M_Y, M_RANGE, WHITE, true);
 			//motor.Draw();
 			//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
 			//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
@@ -265,6 +271,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		FpsTimeFanction();	//現在のFPSの表示
 		if (input.GetKey(KEY_INPUT_DELETE) == 1) {//デリートが押されたら一つ前の画面へ、OP画面ならソフトを終了する
+			back.Set(0);
 			if (sceFlag == 0) {
 				break;
 			}
@@ -272,7 +279,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				sceFlag = 0;
 			}
 		}
-		DrawStringToHandle(DISP_WIDTH - 300, 0, "DELで一つ前の画面に戻る", BLACK, smallTanuki);
+
+		if(sceFlag == 0)	//タイトルの時に文面を変える
+			DrawStringToHandle(DISP_WIDTH - 150, 0, "DELで閉じる", BLACK, smallTanuki);
+		else
+			DrawStringToHandle(DISP_WIDTH - 300, 0, "DELで一つ前の画面に戻る", BLACK, smallTanuki);
+
 		count++;	//カウンタの更新
 	}
 	/*-------------ループ処理ここまで----------------------------------------------------------------------*/

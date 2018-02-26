@@ -8,10 +8,10 @@
 
 void Motors::Initialize() {
 	if (OpenSpidarMouse() != 1){
-		printfDx("No Connect");
+		//printfDx("No Connect");
 	}
 	else {
-		printfDx("Connecting!");
+		//printfDx("Connecting!");
 	}
 	UP = 0.0;
 	RD = 0.0;
