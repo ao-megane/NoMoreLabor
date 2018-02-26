@@ -5,8 +5,10 @@
 //定数をまとめておくヘッダー
 
 const int RED = GetColor(255, 0, 0);		//赤の色コード
+const int ORANGE = GetColor(255, 128, 0);	//オレンジ色の色コード
 const int GREEN = GetColor(0, 255, 0);		//緑の色コード
 const int BLUE = GetColor(0, 0, 255);		//青の色コード
+const int SKYBLUE = GetColor(0, 255, 255);	//水色の色コード
 const int WHITE = GetColor(255, 255, 255);	//白の色コード
 const int BLACK = GetColor(0, 0, 0);		//黒の色コード
 
@@ -19,7 +21,7 @@ const double rootThree = 1.7320508;		//ルート3
 
 const int SENTENCE_WIDTH = 550;
 
-const double F_ABS_MAX = DISP_WIDTH;	//力の最大値（モーターの感度）
+const double F_ABS_MAX = 170;	//力の最大値（モーターの感度）
 
 const int P_HEIGHT = 544 * 0.05;			//プレイヤーの描画の大きさ
 const int P_WIDTH = 928 * 0.05;				//

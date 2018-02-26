@@ -163,10 +163,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			player.Updata(input, wave.IsJump(player.GetCenter()), count);	//入力、波等をもとにプレイヤーの更新
 			SplashMngUpdata(count, player.GetCenter(), player.GetAng(), player.GetState());	//飛沫の更新（プレイヤーの影のような役割）
 			isCourseOut = !back.Updata(count, player.GetCenter());
-																							//decoi = (input.GetMouse().Todouble() - center);	
-			//decoi.Updata();
-			//motor.Calc(decoi, player.GetState());	//
-			//????
 
 			/*-------------描画-------------------*/
 			back.Draw();
@@ -174,15 +170,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				//DrawFormatString(0, 50, RED, "OUT!");
 			}
 
-			input.GetMouse().Todouble().Draw(RED);
+			//input.GetMouse().Todouble().Draw(RED);
 			wave.Draw();
 			SplashMngDraw();
 			player.Draw();
-			DrawCircle(M_X, M_Y, M_RANGE, BLUE, true);
+			DrawCircle(M_X, M_Y, M_RANGE, SKYBLUE, true);
 			//motor.Draw();
 			//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
 			//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
-			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), RED);
+			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + (-player.GetForce() * (1 / F_ABS_MAX) * M_RANGE)), ORANGE);
 			//DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
 			
 			if (isCourseOut) {
@@ -207,13 +203,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (!back.Updata(count, player.GetCenter())) {
 				DrawFormatString(0, 100, BLUE, "OUT!");
 			}
-			input.GetMouse().Todouble().Draw(RED);
+			//input.GetMouse().Todouble().Draw(RED);
 			wave.Draw();
 			SplashMngDraw();
 			player.Draw();
-			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), GREEN);
-			DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
-			DrawCircle(M_X, M_Y, M_RANGE, BLUE, false);
+			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), ORANGE);
+			//DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
+			DrawCircle(M_X, M_Y, M_RANGE, SKYBLUE, false);
 
 			break;
 		}
