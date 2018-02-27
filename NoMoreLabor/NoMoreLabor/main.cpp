@@ -19,7 +19,6 @@ TODO
 画像漁りorお絵かき
 プレイヤー、操作性改善
 力の調整
-波クラスの実装
 */
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
