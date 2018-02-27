@@ -4,17 +4,20 @@
 #include"Input.h"
 #include"Value.h"
 
+//プレイヤー（ボート）の処理を統括するクラス
+
 class Player
 {
 public:
 	Player(){}
 	~Player(){}
-	void Initialize();
-	void Updata(Input input,bool Jflag, int count);
-	void SetJump(int count);
-	void UpdataJump(int count);
-	void Draw();
-	void End();
+	void Initialize();		//初期化関数
+	void Set(int flag);
+	void Updata(Input input,bool Jflag, int count);	//入力や波などに応じた更新関数
+	void SetJump(int count);	//ジャンプ状態にする関数
+	void UpdataJump(int count);	//ジャンプ状態時の更新関数
+	void Draw();			//描画関数
+	void End();				//終了関数
 	Dot GetCenter();
 	Dot GetVelocity();
 	Dot GetAccelerator();
@@ -25,16 +28,16 @@ public:
 
 private:
 	//Dot precenter;
-	Dot center;
-	Dot velocity;//縦方向のみだからintでよい？
-	Dot accelerator;
-	Dot force;
-	int weight;
-	int state;//0 normal 1 jumping
-	int bodyClock;
-	double enlarge;
-	double ang;//描画用角度
-	int image;
+	Dot center;			//中心座標
+	Dot velocity;		//プレイヤーの速度（ベクトル）
+	Dot accelerator;	//プレイヤーの加速度（ベクトル）
+	Dot force;			//プレイヤーの受ける力のベクトル
+	int weight;			//プレイヤーの重さ（受ける力に影響を与える）
+	int state;			//プレイヤーの状態を保持する変数　0:normal 1:jumping
+	int bodyClock;		//アニメーション用カウント保持変数
+	double enlarge;		//アニメーション用画像拡大率
+	double ang;			//描画用角度
+	int image;			//描画画像ハンドル
 };
 
 
