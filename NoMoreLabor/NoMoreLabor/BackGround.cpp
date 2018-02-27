@@ -5,13 +5,16 @@
 int bgHandle1;
 int mapHandle1;
 int softmapHandle1;
-//int mapHandle2;
+int mapHandle2;
+int softmapHandle2;
 
 void Back::Initialize() {
 	/*-------------Še‰æ‘œ‚ÌŠi”[-------------------*/
 	bgHandle1 = LoadGraph("images/map/BackGround.png");
 	mapHandle1 = LoadGraph("images/map/map1.png");
 	softmapHandle1 = LoadSoftImage("images/map/softmap1.png");
+	mapHandle2 = LoadGraph("images/map/map2.png");
+	softmapHandle2 = LoadSoftImage("images/map/softmap2.png");
 
 }
 
@@ -27,7 +30,10 @@ void Back::Set(int stage) {
 		mapHandle = mapHandle1;
 		softmapHandle = softmapHandle1;
 		break;
-	case 2:
+	case 2://ƒXƒe[ƒW2‚É‰‚¶‚½‰æ‘œ‚ğŠi”[
+		bgHandle = bgHandle1;
+		mapHandle = mapHandle2;
+		softmapHandle = softmapHandle2;
 		break;
 	default:
 		break;

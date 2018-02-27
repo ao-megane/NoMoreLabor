@@ -18,6 +18,28 @@ void Player::Initialize() {
 	state = 0;
 }
 
+void Player::Set(int flag) {
+	velocity.Set(0, 0);
+	velocity.Updata();
+	accelerator.Set(0, 0);
+	accelerator.Updata();
+	force.Set(0, 0);
+	force.Updata();
+	image = NormalImage;
+	enlarge = 1;
+	state = 0;
+	switch (flag) {//map1 or map2
+	case 1:
+		ang = 0;
+		center.Set(DISP_WIDTH / 2, DISP_HEIGHT / 2);
+		break;
+	case 2:
+		ang = PI;
+		center.Set(DISP_WIDTH - 100, 75);
+		break;
+	}
+}
+
 void Player::SetJump(int count) {
 	state = 1;			//ジャンプ状態へ
 	bodyClock = count;	//アニメーションのスタートクロックの保持

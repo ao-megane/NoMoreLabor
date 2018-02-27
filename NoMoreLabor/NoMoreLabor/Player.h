@@ -12,6 +12,7 @@ public:
 	Player(){}
 	~Player(){}
 	void Initialize();		//初期化関数
+	void Set(int flag);
 	void Updata(Input input,bool Jflag, int count);	//入力や波などに応じた更新関数
 	void SetJump(int count);	//ジャンプ状態にする関数
 	void UpdataJump(int count);	//ジャンプ状態時の更新関数

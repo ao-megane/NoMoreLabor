@@ -26,7 +26,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	SetGraphMode(DISP_WIDTH, DISP_HEIGHT, 32);	//画素数、使用する色の数の設定
 	{
 		/*-------------ウィンドウモード設定-------------------*/
-		SetWindowSizeExtendRate(0.7);	//上で設定したサイズの0.7倍で表示
+		SetWindowSizeExtendRate(0.9);	//上で設定したサイズの0.7倍で表示
 		ChangeWindowMode(true);			//ウィンドウモードに変更（デフォルトはフルスクリーンモード）
 	}
 	SetDrawScreen(DX_SCREEN_BACK);	//裏画面処理の設定
@@ -43,7 +43,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//デバック用
 		intDot mdot;	//マウス処理
 		mdot.Set(M_X, M_Y);	//マウスを既定の位置へセット
-		bool setFlag = true;
+		bool setFlag = true;//ポートデバッグ用
 	
 	Back back;		//背景処理
 	Wave wave;		//波処理
@@ -120,28 +120,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				count = 0;	//カウンタを初期化
 				sceFlag = stageFlag + 1;		//OPの選択表示フラグをシステムの流れフラグへ反映
 
-				if (sceFlag == 1) {				//map1の準備
-					/*-------------各種クラスの初期化処理-------------------*/
-					motor.Initialize();
-					player.Initialize();
-					back.Initialize();
-					wave.Initialize();
-					SplashMngInitialize();
-					back.Set(sceFlag);		//背景の設定（モードにより異なる）
-					SetMousePoint(M_X, M_Y);	//マウス位置の初期化
+				motor.Initialize();
+				player.Set(sceFlag);
+				wave.Initialize();
+				SplashMngInitialize();
+				back.Set(sceFlag);		//背景の設定（モードにより異なる）
+				//SetMousePoint(M_X, M_Y);	//マウス位置の初期化
 
-				}
-				else if (sceFlag == 2) {		//map2の準備
-					/*-------------各種クラスの初期化処理-------------------*/
-					motor.Initialize();
-					player.Initialize();
-					back.Initialize();
-					wave.Initialize();
-					SplashMngInitialize();
-					back.Set(sceFlag);		//背景の設定（モードにより異なる）
-					SetMousePoint(M_X, M_Y);	//マウス位置の初期化
-				}
-				else if (sceFlag == 5) {
+				if (sceFlag == 5) {
 					/*-------------終了処理-------------*/
 					motor.End();
 					InitSoftImage();
@@ -193,29 +179,35 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			break; 
 		}
-		case 2://map2
+		case 2://map2(現状ではmap1と同じ処理)
 		{
 			/*-------------各クラスの更新-------------------*/
 			wave.Set(count);	//カウンタに応じて波をセット
 			wave.Updata(count);	//カウンタに応じて波を更新
 			player.Updata(input, wave.IsJump(player.GetCenter()), count);	//入力、波等をもとにプレイヤーの更新
 			SplashMngUpdata(count, player.GetCenter(), player.GetAng(), player.GetState());	//飛沫の更新（プレイヤーの影のような役割）
+			isCourseOut = !back.Updata(count, player.GetCenter());
 
 			/*-------------描画-------------------*/
 			back.Draw();
 			if (!input.GetMouse().Todouble().IsHitC(M_X, M_Y, M_RANGE)) {
-				DrawFormatString(0, 50, RED, "OUT!");
+				//DrawFormatString(0, 50, RED, "OUT!");
 			}
-			if (!back.Updata(count, player.GetCenter())) {
-				DrawFormatString(0, 100, BLUE, "OUT!");
-			}
+
 			//input.GetMouse().Todouble().Draw(RED);
 			wave.Draw();
 			SplashMngDraw();
 			player.Draw();
-			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -player.GetForce()), ORANGE);
+			DrawCircle(M_X, M_Y, M_RANGE, WHITE, true);
+			//motor.Draw();
+			//DrawLineByDot(center, input.GetMouse().Todouble(), GREEN);
+			//DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + -(player.GetVelocity()).Rotate(player.GetAng())*5), GREEN);
+			DrawLineByDot(mdot.Todouble(), (mdot.Todouble() + (-player.GetForce() * (1 / F_ABS_MAX) * M_RANGE)), ORANGE);
 			//DrawCircle(center.GetX(), center.GetY(), 3, RED, true);
-			DrawCircle(M_X, M_Y, M_RANGE, SKYBLUE, false);
+
+			if (isCourseOut) {
+				DrawStringToHandle(100, 100, "コースアウトしています！早く戻りましょう！", RED, tanuki);
+			}
 
 			break;
 		}
@@ -273,6 +265,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		FpsTimeFanction();	//現在のFPSの表示
 		if (input.GetKey(KEY_INPUT_DELETE) == 1) {//デリートが押されたら一つ前の画面へ、OP画面ならソフトを終了する
 			back.Set(0);
+			power = 0;
 			if (sceFlag == 0) {
 				break;
 			}

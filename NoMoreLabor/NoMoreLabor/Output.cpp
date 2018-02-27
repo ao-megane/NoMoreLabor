@@ -8,11 +8,12 @@
 
 void Motors::Initialize() {
 	if (OpenSpidarMouse() != 1){
-		//printfDx("No Connect");
+		printfDx("No Connect");
 	}
 	else {
 		//printfDx("Connecting!");
 	}
+
 	UP = 0.0;
 	RD = 0.0;
 	LD = 0.0;
@@ -69,14 +70,17 @@ const double R = 200.0;
 void Motors::Updata(bool flag) {
 	//SetDutyOnCh(UP, RD, LD, SPE, 1000.0 / GetFPS());	//フレーム間で出力が終わるように間隔を設定（PWMの回避）
 
-	if (flag) {
+	/*if (flag) {
 		SetDutyOnCh(UP, RD, LD, SPE, 1000.0 / GetFPS());
 		DrawFormatString(0, 280, GREEN, "SetDutyOnCh(UP, RD, LD, SPE, 1000.0 / GetFPS());");
 	}
 	else {
 		SetDutyOnCh(RD, LD, SPE, UP, 1000.0 / GetFPS());
 		DrawFormatString(0, 280, GREEN, "SetDutyOnCh(RD, LD, SPE, UP, 1000.0 / GetFPS());");
-	}
+	}*/
+
+	SetDutyOnCh(RD, LD, SPE, UP, 1000.0 / GetFPS());
+	DrawFormatString(0, 280, GREEN, "SetDutyOnCh(RD, LD, SPE, UP, 1000.0 / GetFPS());");
 
 	//デバック用表示
 	DrawFormatString(0, 300, GREEN, "UP : %f", UP);
@@ -86,6 +90,7 @@ void Motors::Updata(bool flag) {
 	DrawFormatString(0, 380, GREEN, "DUR: %f", 1000.0 / GetFPS());
 	//SetDutyOnCh(UP, RD, LD, SPE, 22);
 }
+
 void Motors::Draw() {
 
 	//正三角形上に見やすく描画

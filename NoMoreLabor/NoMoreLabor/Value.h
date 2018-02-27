@@ -37,7 +37,7 @@ const int M_X = DISP_WIDTH - 100;			//コーススタート時のマウスの初期位置（横）
 const int M_Y = DISP_HEIGHT - 100;			//コーススタート時のマウスの初期位置（縦）
 const int M_RANGE = 80;						//描画用、円の半径
 
-const int WAVE_INTERVAL = 20 * 60;	//波の生まれる間隔（フレーム）
+const int WAVE_INTERVAL = 20 * 60 * 1.5;	//波の生まれる間隔（フレーム）
 const int WAVE_SPEED = 2;			//1フレーム当たりの波の進む速度
 const int WAVE_BAND = 50;			//波の太さ
 

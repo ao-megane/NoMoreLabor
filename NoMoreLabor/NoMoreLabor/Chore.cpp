@@ -10,6 +10,7 @@ bool IsBlack(int imageHandle, Dot dot) {
 	int r = 0, g = 0, b = 0;
 
 	GetPixelSoftImage(imageHandle, dot.GetX(), dot.GetY(), &r, &g, &b, 0);	//imageHandleのdot(座標)のRGBを格納
+	//printfDx("RGB = %3d,%3d,%3d\n", r, g, b);
 	if (r == 0 && g == 0 && b == 0) {	//全て0なら
 		return true;
 	}
@@ -25,7 +26,7 @@ void DrawCredit(int font) {
 	DrawStringToHandle(250, 150, "", BLACK, font);
 	DrawStringToHandle(250, 200, "ソフト担当", BLACK, font);
 	DrawStringToHandle(250, 250, "　4L22 田村 崚", BLACK, font);
-	DrawStringToHandle(250, 300, "　4R22 小林 荘太", BLACK, font);
+	DrawStringToHandle(250, 300, "　4R12 小林 荘太", BLACK, font);
 	DrawStringToHandle(250, 350, "　使用ソフト:visualstudio2015,github", BLACK, font);
 	DrawStringToHandle(250, 400, "　使用ライブラリ:DxLib", BLACK, font);
 	DrawStringToHandle(250, 450, "", BLACK, font);
